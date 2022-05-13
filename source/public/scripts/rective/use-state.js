@@ -1,7 +1,7 @@
-import {vDom} from "./mutables.js";
+import {mutables} from "./mutables.js";
 
 export const useState = (initialState) => {
-    const node = vDom[identifier]
+    const node = mutables.Dom[mutables.identifier]
     const index = node.cachedIndex
     node.cachedIndex++
     if (!node.state || node.state[index] === undefined) {

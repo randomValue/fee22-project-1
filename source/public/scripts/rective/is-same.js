@@ -2,7 +2,7 @@ export const isSame = (oldState, state) => {
     if (typeof state !== typeof oldState) {
         return false
     }
-    if (typeof state === 'object' && !Array.isArray(state)) {
+    if (typeof state === 'object' && !Array.isArray(state) && state && oldState) {
         return Object.entries(state).reduce((acc, [key, value]) => {
             if (!(key in oldState)) {
                 return false
@@ -21,9 +21,5 @@ export const isSame = (oldState, state) => {
             return acc
         }, true) && state.length === oldState.length
     }
-    if (state !== oldState) {
-        return false
-    }
-    return true
-
+    return state === oldState;
 }
