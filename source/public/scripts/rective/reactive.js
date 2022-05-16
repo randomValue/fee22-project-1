@@ -40,9 +40,8 @@ export const buildVDom = (virtualNode, id, parentNode) => {
             node.children[i] = textElement
             return
         }
-        const childId = node.id + i + 1
+        const childId = node.id + "_" + i
         mutables.identifier = childId
-        createdNode.children[i] = {id: childId, node: child}
         node.children[i] = childId
         buildVDom(child, childId, element)
     })

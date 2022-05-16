@@ -7,7 +7,7 @@ export const isSame = (oldState, state) => {
             if (!(key in oldState)) {
                 return false
             }
-            if (value !== oldState[key]) {
+            if (!isSame(value, oldState[key])) {
                 return false
             }
             return acc
@@ -15,11 +15,14 @@ export const isSame = (oldState, state) => {
     }
     if (Array.isArray(state)) {
         return state.reduce((acc, entry, index) => {
-            if (entry !== oldState[index]) {
-                return false
+            if (!isSame(entry, oldState[index])) {
+                acc = false
             }
             return acc
         }, true) && state.length === oldState.length
+    }
+    if (typeof state === "function") {
+        return state.toString() === oldState.toString()
     }
     return state === oldState;
 }
