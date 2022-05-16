@@ -1,6 +1,7 @@
 import {mutables} from "./mutables.js";
 import {isSame} from "./is-same.js";
 import {domNode} from "./dom-node.js";
+import {buildVDom} from "./reactive.js";
 
 
 export const vNode = {
@@ -26,8 +27,19 @@ export const vNode = {
         }
         if (Comp && (!sameState || !sameProps || !sameNode)) {
             this.nextState.forEach((entry, index) => {
-                this.state[index] = entry
-            })
+                    if (Array.isArray(entry)) {
+                        this.state[index] = [...entry]
+                        return
+                    }
+                    if (typeof entry === 'object' &&
+                        !Array.isArray(entry) &&
+                        entry !== null) {
+                        this.state[index] = {...entry}
+                        return
+                    }
+                    this.state[index] = entry
+                }
+            )
             this.cachedIndex = 0
             this.cachedEffects = 0
             this.props = this.nextProps
@@ -37,10 +49,32 @@ export const vNode = {
             Object.entries(composition.props || {}).forEach(([key, value]) => {
                 this.domNode.setAttribute(key, value)
             })
+            if (composition.children.length < this.children.length) {
+                const amount = this.children.length - composition.children.length
+
+                for(let i = 0; i < amount; i++){
+                    const childId = this.children[this.children.length - 1 - i]
+                    const childNode = mutables.Dom[childId]
+                    this.domNode.removeChild(childNode.domNode)
+                    delete mutables.Dom[childNode]
+                }
+                this.children = this.children.slice(0, -1)
+            }
             composition.children.forEach((child, i) => {
                 const node = mutables.Dom[this.children[i]]
-                if (!child && node.node) {
+                if (!child && node?.node) {
                     this.domNode.removeChild(node.domNode)
+                    delete mutables.Dom[this.children[i]]
+                    this.children[i] = null
+                    return
+                }
+                if (!child) {
+                    return
+                }
+                if (this.children[i] === null && child) {
+                    this.children[i] = Math.random() * Date.now() + i
+                    buildVDom(child, this.children[i], this.domNode)
+                    return
                 }
                 if (node) {
                     node.nextProps = child?.props || null
@@ -52,7 +86,6 @@ export const vNode = {
                     node.render(child)
                     node.node = child
                 } else {
-
                     this.children[i].nodeValue = child
                     if (!this.node) {
                         this.domNode.insertBefore(this.children[i], this.children[i + 1])

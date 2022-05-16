@@ -2,7 +2,7 @@ import {mutables} from "./mutables.js";
 import {vNode} from "./v-node.js";
 import {domNode} from "./dom-node.js"
 
-const buildVDom = (virtualNode, id, parentNode) => {
+export const buildVDom = (virtualNode, id, parentNode) => {
     if (typeof virtualNode === "string") {
         return
     }
