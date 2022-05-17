@@ -21,8 +21,5 @@ export const isSame = (oldState, state) => {
             return acc
         }, true) && state.length === oldState.length
     }
-    if (typeof state === "function") {
-        return state.toString() === oldState.toString()
-    }
     return state === oldState;
 }

@@ -34,12 +34,12 @@ export const loopThroughChildren = (composition, currentNode) => {
             return
         }
         if (currentNode.children[i] === null && child) {
-            currentNode.children[i] = Math.round(Math.random() * Date.now() + i) + "_" + i
+            currentNode.children[i] = currentNode.id + "_" + i
             buildVDom(child, currentNode.children[i], currentNode.domNode)
             return
         }
         if (child && node === undefined && typeof child !== 'string') {
-            currentNode.children[i] = Math.round(Math.random() * Date.now()) + "_" + i
+            currentNode.children[i] = currentNode.id + "_" + i
             buildVDom(child, currentNode.children[i], currentNode.domNode)
             return
         }

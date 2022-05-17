@@ -11,7 +11,7 @@ export const useState = (initialState) => {
         node.state.push(destructedElement(initialState))
         returnState = destructedElement(initialState)
     } else {
-        const destructState = destructedElement(node.state[index])
+        const destructState = node.state[index]
         returnState = destructState
     }
     const setState = (state) => {

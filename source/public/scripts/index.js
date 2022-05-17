@@ -9,7 +9,7 @@ const mock = [
     {prio: 4, text: 'Hello 4'},
     {prio: 5, text: 'Hello 5'},
     {prio: 6, text: 'Hello 6'},
-    {prio: 7, text: 'Hello 8'},
+    {prio: 7, text: 'Hello 7'},
     {prio: 8, text: 'Hello 8'}
 ]
 
@@ -35,7 +35,6 @@ const CustomEl = ({isDisabled}) => {
     }, `Test ${item.text}`, createElement('button', {
         onClick: () => {
             if (i > 0) {
-                console.log(next[i].prio)
                 next[i].prio = next[i].prio - 1
                 next[i - 1].prio = next[i - 1].prio + 1
                 const sorted = next.sort((prev, next) => prev.prio - next.prio)
