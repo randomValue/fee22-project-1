@@ -14,7 +14,7 @@ export const useState = (initialState) => {
         returnState = destructedElement(node.state[index])
     }
     const setState = (state) => {
-        node.nextState[index] = state
+        node.nextState[index] = typeof state === "function" ? state(node.state[index]) : state
         node.render(node.function, index)
     }
     return [returnState, setState]

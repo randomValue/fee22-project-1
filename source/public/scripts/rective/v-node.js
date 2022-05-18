@@ -1,6 +1,8 @@
 import {mutables} from "./mutables.js";
 import {isSame} from "./is-same.js";
 import {loopThroughChildren} from "./loop-through-children.js";
+import {createAttributes} from "./create-attributes.js";
+import {createEvents} from "./create-events.js";
 
 
 export const vNode = {
@@ -45,15 +47,8 @@ export const vNode = {
             const composition = typeof Comp === "function" ? Comp(this.props) : Comp
             this.cachedIndex = cachedIndex
 
-            Object.entries(composition.props || {}).forEach(([key, value]) => {
-                this.domNode.setAttribute(key, value)
-            })
-            Object.entries(composition.synth || {}).forEach(([key, value]) => {
-                const handler = key.replace("on", "").toLowerCase()
-                const oldHandler = this.node.synth[key]
-                this.domNode.removeEventListener(handler, oldHandler)
-                this.domNode.addEventListener(handler, value)
-            })
+            createAttributes(composition.props, this.domNode)
+            createEvents(composition.synth, this.domNode, this.node)
             loopThroughChildren(composition, this)
         }
     }

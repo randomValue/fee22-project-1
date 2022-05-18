@@ -1,3 +1,6 @@
+import {createAttributes} from "./create-attributes.js";
+import {createEvents} from "./create-events.js";
+
 export const domNode = (node) => {
     let createdNode = node
     if (typeof node === "function") {
@@ -11,12 +14,9 @@ export const domNode = (node) => {
     if (createdNode.type) {
         element = document.createElement(createdNode.type)
     }
-    Object.entries(createdNode.props || {}).forEach(([key, value]) => {
-        element.setAttribute(key, value)
-    })
-    Object.entries(createdNode.synth || {}).forEach(([key, value]) => {
-        const handler = key.replace("on", "")
-        element.addEventListener(handler.toLowerCase(), value)
-    })
+
+    createAttributes(createdNode.props, element)
+    createEvents(createdNode.synth, element)
+
     return {node: createdNode, element}
 }
