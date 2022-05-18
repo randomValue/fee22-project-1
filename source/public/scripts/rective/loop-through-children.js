@@ -17,7 +17,6 @@ export const loopThroughChildren = (composition, currentNode) => {
     composition.children.forEach((child, i) => {
         if (typeof child === "string" && child) {
             const textNode = currentNode.children[i]
-            textNode.nodeValue && console.log(currentNode.children[i])
             if (textNode.nodeValue && textNode.nodeValue !== child) {
                 textNode.nodeValue = child
             }
@@ -33,12 +32,7 @@ export const loopThroughChildren = (composition, currentNode) => {
         if (!child) {
             return
         }
-        if (currentNode.children[i] === null && child) {
-            currentNode.children[i] = currentNode.id + "_" + i
-            buildVDom(child, currentNode.children[i], currentNode.domNode)
-            return
-        }
-        if (child && node === undefined && typeof child !== 'string') {
+        if ((currentNode.children[i] === null && child) || (child && node === undefined && typeof child !== 'string')) {
             currentNode.children[i] = currentNode.id + "_" + i
             buildVDom(child, currentNode.children[i], currentNode.domNode)
             return

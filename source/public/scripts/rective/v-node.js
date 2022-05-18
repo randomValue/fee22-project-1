@@ -48,6 +48,12 @@ export const vNode = {
             Object.entries(composition.props || {}).forEach(([key, value]) => {
                 this.domNode.setAttribute(key, value)
             })
+            Object.entries(composition.synth || {}).forEach(([key, value]) => {
+                const handler = key.replace("on", "").toLowerCase()
+                const oldHandler = this.node.synth[key]
+                this.domNode.removeEventListener(handler, oldHandler)
+                this.domNode.addEventListener(handler, value)
+            })
             loopThroughChildren(composition, this)
         }
     }

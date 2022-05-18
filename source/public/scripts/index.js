@@ -18,9 +18,10 @@ const CustomEl = ({isDisabled}) => {
     const [active, setActive] = useState(0)
     const [next, setNext] = useState(mock)
 
+
     return createElement('div', null, createElement('button', {
         onClick: () => {
-            next.push({prio: next.length, text: 'Plus 1'})
+            next.push({prio: next.length + 1, text: 'Plus' + (next.length + 1)})
             setNext(next)
         }
     }, 'add'), createElement('button', {
@@ -33,15 +34,17 @@ const CustomEl = ({isDisabled}) => {
             setActive(i)
         }, style: `background-color: ${active === i ? 'green' : 'red'}`
     }, `Test ${item.text}`, createElement('button', {
+        what: next.length,
         onClick: () => {
             if (i > 0) {
-                next[i].prio = next[i].prio - 1
-                next[i - 1].prio = next[i - 1].prio + 1
-                const sorted = next.sort((prev, next) => prev.prio - next.prio)
-                setNext(sorted)
+                const temp = next[i]
+                next.splice(i, 1)
+                next.splice(i - 1, 0, temp)
+                next.map((item, index) => item.prio = index)
+                setNext(next)
             }
         }
-    }, 'higher Prio'))))
+    }, 'higher Prio' + next.length))))
 }
 
 const App = () => {
