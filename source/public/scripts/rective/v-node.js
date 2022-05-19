@@ -3,6 +3,7 @@ import {isSame} from "./is-same.js";
 import {loopThroughChildren} from "./loop-through-children.js";
 import {createAttributes} from "./create-attributes.js";
 import {createEvents} from "./create-events.js";
+import {createRef} from "./create-ref.js";
 
 
 export const vNode = {
@@ -49,6 +50,8 @@ export const vNode = {
 
             createAttributes(composition.props, this.domNode)
             createEvents(composition.synth, this.domNode, this.node)
+            this.node = composition
+
             loopThroughChildren(composition, this)
         }
     }

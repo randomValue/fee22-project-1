@@ -15,7 +15,7 @@ export const domNode = (node) => {
         element = document.createElement(createdNode.type)
     }
 
-    createAttributes(createdNode.props, element)
+    createAttributes(createdNode.props, element, createdNode)
     createEvents(createdNode.synth, element)
 
     return {node: createdNode, element}

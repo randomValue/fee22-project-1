@@ -1,6 +1,7 @@
 import {mutables} from "./mutables.js";
 import {vNode} from "./v-node.js";
 import {domNode} from "./dom-node.js"
+import {createRef} from "./create-ref.js";
 
 export const buildVDom = (virtualNode, id, parentNode) => {
     if (typeof virtualNode === "string") {
@@ -27,6 +28,8 @@ export const buildVDom = (virtualNode, id, parentNode) => {
     }
 
     const {node: createdNode, element} = domNode(virtualNode)
+
+    createRef(createdNode, element)
 
     node.node = createdNode
     node.domNode = element
