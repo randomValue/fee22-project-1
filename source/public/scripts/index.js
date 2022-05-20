@@ -22,15 +22,16 @@ let originElement = undefined
 
 
 const CustomEl = ({isDisabled}) => {
+    const [list, setList] = useState(mock)
     const [active, setActive] = useState(0)
-    const [next, setNext] = useState(mock)
 
 
     return createElement('div', {
-        style: {padding: '20px;'},
+        style: {padding: '20px;', userSelect: active ? 'none' : 'auto'},
         onMousedown: (e) => {
             refs.forEach((item, i) => {
                 if (item === e.target) {
+                    setActive(true)
                     dragElement = e.target.cloneNode(true)
                     dragElement.style.position = "absolute"
                     dragElement.style.left = 0
@@ -50,14 +51,15 @@ const CustomEl = ({isDisabled}) => {
             if (dragElement) {
                 dragElement.style.transform = `translate3d(${offset.x}px,${offset.y}px,0)`
                 const dragOffsetTop = dragElement.getBoundingClientRect().y
-                for (const item of refs) {
+                const children = originElement.parentElement.children
+                for (const item of children) {
                     const itemOffsetTop = item.getBoundingClientRect().y
 
 
                     if (itemOffsetTop > dragOffsetTop && item !== originElement) {
                         item.parentNode.insertBefore(originElement, item)
                         return
-                    } else if (item === refs[refs.length - 1] && itemOffsetTop < dragOffsetTop) {
+                    } else if (item === children[children.length - 1] && itemOffsetTop < dragOffsetTop) {
                         item.parentNode.insertBefore(originElement, item.nextSibling)
                     }
                 }
@@ -67,42 +69,52 @@ const CustomEl = ({isDisabled}) => {
             if (!dragElement) {
                 return
             }
+            const children = Array.from(originElement.parentElement.children)
+
+            const sortNext = []
+
+            children.forEach((item, index) => {
+                const foundIndex = refs.findIndex(ref => ref === item)
+                foundIndex > -1 && sortNext.push(list[foundIndex])
+            })
+
             dragElement.style.transform = ``
             dragElement.remove()
-            originElement.style.opacity = 1
+            originElement.style.removeProperty('opacity')
             dragElement = undefined
+
+            setList(sortNext)
+            setActive(false)
         }
     }, createElement('button', {
         onClick: () => {
-            next.push({prio: next.length + 1, text: 'Plus' + (next.length + 1)})
-            setNext(next)
+            list.push({prio: list.length + 1, text: 'Plus' + (list.length + 1)})
+            setList(list)
         }
     }, 'add'), createElement('button', {
         onClick: () => {
-            next.pop()
-            setNext(next)
+            list.pop()
+            setList(list)
         }
-    }, 'remove'), next.map((item, i) => createElement('h2', {
-        ref: (ref) => {
-            refs[i] = ref
-        },
-        onClick: () => {
-            setActive(i)
-        }, style: {
-            backgroundColor: `${active === i ? 'green' : 'red'}`,
-        }
-    }, `Test ${item.text}`, createElement('button', {
-        what: next.length,
-        onMouseDown: () => {
-            if (i > 0) {
-                const temp = next[i]
-                next.splice(i, 1)
-                next.splice(i - 1, 0, temp)
-                next.map((item, index) => item.prio = index)
-                setNext(next)
+    }, 'remove'), list.map((item, i) => {
+        return createElement('h2', {
+            key: `list_${i}`,
+            ref: (ref) => {
+                refs[i] = ref
             }
-        }
-    }, 'higher Prio' + next.length))))
+        }, `Test ${item.text}`, createElement('button', {
+            what: list.length,
+            onClick: () => {
+                if (i > 0) {
+                    const temp = list[i]
+                    list.splice(i, 1)
+                    list.splice(i - 1, 0, temp)
+                    list.map((item, index) => item.prio = index)
+                    setList(list)
+                }
+            }
+        }, 'higher Prio'))
+    }))
 }
 
 const App = () => {

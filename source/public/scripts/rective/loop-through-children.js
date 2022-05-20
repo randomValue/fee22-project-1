@@ -44,6 +44,10 @@ export const loopThroughChildren = (composition, currentNode) => {
                 currentNode.domNode.insertBefore(element, currentNode.domNode.children[i + 1])
                 node.domNode = element
             }
+            const domChildren = currentNode.domNode.children
+            if(domChildren[i] !== node.domNode){
+                currentNode.domNode.insertBefore(node.domNode, domChildren[i])
+            }
             node.render(child)
             node.node = child
         } else {
