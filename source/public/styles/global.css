@@ -17,6 +17,7 @@ button {
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 :root {
@@ -103,6 +104,30 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 var(--spacing-8);
+    color: var(--white)
+}
+
+.header-date-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.header-prio {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    color: var(--primary-light)
+}
+
+.header-prio-label{
+    color: var(--white);
+}
+
+.header-actions{
+    display: flex;
+    gap: var(--spacing-3);
 }
 
 .main {
@@ -242,4 +267,19 @@ button {
     transform: translate(0, -10px);
     border-radius: var(--spacing-4);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.edit-button {
+    background-color: var(--white);
+    color: var(--primary);
+}
+
+.done-button {
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
+.delete-button {
+    background-color: var(--orange);
+    color: var(--white);
 }
