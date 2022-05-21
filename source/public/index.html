@@ -1,15 +1,309 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Note App</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
-  <script src="scripts/index.js" type="module"></script>
+    <meta charset="UTF-8">
+    <title>Note App: Meine Notizen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"
+            integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
+    <script src="scripts/index.js" type="module"></script>
 
-  <link rel="stylesheet" href="styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:ital,wght@1,300&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/global.css">
 </head>
 <body>
-<h1>Note App</h1>
+<div class="container">
+    <div class="app">
+        <main class="main">
+            <div class="side-nav">
+                <div class="search-container">
+                    <button class="button-base icon-button-small button-outline button-rounded">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5033 10.0033H9.97665L9.78998 9.82335C10.4433 9.06335 10.8366 8.07668 10.8366 7.00335C10.8366 4.61001 8.89665 2.67001 6.50332 2.67001C4.10998 2.67001 2.16998 4.61001 2.16998 7.00335C2.16998 9.39668 4.10998 11.3367 6.50332 11.3367C7.57665 11.3367 8.56332 10.9433 9.32332 10.29L9.50332 10.4767V11.0033L12.8366 14.33L13.83 13.3367L10.5033 10.0033ZM6.50332 10.0033C4.84332 10.0033 3.50332 8.66335 3.50332 7.00335C3.50332 5.34335 4.84332 4.00335 6.50332 4.00335C8.16332 4.00335 9.50332 5.34335 9.50332 7.00335C9.50332 8.66335 8.16332 10.0033 6.50332 10.0033Z"
+                                  fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <div class="filter-group">
+                        <button class="button-base button-outline button-rounded">nach Datum</button>
+                        <button class="button-base button-filled button-rounded">Relevanz</button>
+                        <button class="button-base button-outline button-rounded">Erstellung</button>
+                    </div>
+                    <button class="button-base icon-button-small button-filled button-rounded">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.66667 12.5H9.33333V11.1667H6.66667V12.5ZM2 4.5V5.83333H14V4.5H2ZM4 9.16667H12V7.83333H4V9.16667Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </svg>
+                    </button>
+                </div>
+                <div class="add-button-container">
+                    <button class="button-base add-button">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" fill="white"/>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <button class="nav-button">
+                                <span class="nav-button-text">
+                                    <span class="nav-button-title">Einkaufen</span>
+                                    <span>Brot, Butter, etc.</span>
+                                </span>
+                                <span class="nav-button-date-prio">
+                                    <span class="nav-button-prio">
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <span>28.09.2022</span>
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z"
+                                          fill="currentColor"/>
+                                </svg>
 
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-button nav-button-active">
+                                <span class="nav-button-text">
+                                    <span class="nav-button-title">Einkaufen</span>
+                                    <span>Brot, Butter, etc.</span>
+                                </span>
+                                <span class="nav-button-date-prio">
+                                    <span class="nav-button-prio">
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <span>28.09.2022</span>
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z"
+                                          fill="currentColor"/>
+                                </svg>
+
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-button">
+                                <span class="nav-button-text">
+                                    <span class="nav-button-title">Einkaufen</span>
+                                    <span>Brot, Butter, etc.</span>
+                                </span>
+                                <span class="nav-button-date-prio">
+                                    <span class="nav-button-prio">
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <span>28.09.2022</span>
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z"
+                                          fill="currentColor"/>
+                                </svg>
+
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-button nav-button-done">
+                                <span class="nav-button-text">
+                                    <span class="nav-button-title">Einkaufen</span>
+                                    <span>Brot, Butter, etc.</span>
+                                </span>
+                                <span class="nav-button-date-prio">
+                                    <span class="nav-button-prio">
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <span>28.09.2022</span>
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z"
+                                          fill="currentColor"/>
+                                </svg>
+
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-button">
+                                <span class="nav-button-text">
+                                    <span class="nav-button-title">Einkaufen</span>
+                                    <span>Brot, Butter, etc.</span>
+                                </span>
+                                <span class="nav-button-date-prio">
+                                    <span class="nav-button-prio">
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                                  fill="currentColor"/>
+                                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <span>28.09.2022</span>
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z"
+                                          fill="currentColor"/>
+                                </svg>
+
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <section class="note">
+                <div class="header"></div>
+            </section>
+        </main>
+    </div>
+</div>
+<script src="scripts/rective/reactive.js" type="module"></script>
 </body>
 </html>
