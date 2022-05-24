@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/styles/buttons.css">
     <link rel="stylesheet" href="/styles/side-nav.css">
     <link rel="stylesheet" href="/styles/note.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
 <div class="container">
@@ -36,7 +37,7 @@
                         </button>
                     </div>
                     <div class="filter-group">
-                        <button class="button-base button-outline button-rounded">nach Datum</button>
+                        <button class="button-base button-outline button-rounded">Datum</button>
                         <button class="button-base button-filled button-rounded">Relevanz</button>
                         <button class="button-base button-outline button-rounded">Erstellung</button>
                     </div>
@@ -276,7 +277,7 @@
                 <div class="header">
                     <div class="header-date-container">
                         <div class="header-date-label">
-                            Zu erledigen bis:
+                            erledigen bis:
                         </div>
                         <div class="header-dat">28.09.2022</div>
                     </div>
@@ -346,7 +347,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="note-content">
+                <!--<div class="note-content">
                     <h1 class="note-title">Einkaufen</h1>
                     <p class="note-text">
                         Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die
@@ -372,7 +373,53 @@
                         die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das
                         Blindtextchen, da, wo sie herkäme wäre sie
                     </p>
-                </div>
+                </div>-->
+                <form class="note-form">
+                    <label for="note-title" class="note-label">Titel: </label>
+                    <input type="text" class="note-input" id="note-title">
+                    <label for="note-date" class="note-label">erledigen bis: </label>
+                    <input type="date" class="note-input" id="note-date">
+                    <label for="note-relevanz" class="note-label">Relevanz: </label>
+                    <div>
+                        <input type="radio" id="note-relevanz">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                  fill="currentColor"/>
+                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                        </svg>
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                  fill="currentColor"/>
+                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                        </svg>
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                  fill="currentColor"/>
+                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                        </svg>
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                  fill="currentColor"/>
+                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                        </svg>
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" class="active-prio">
+                            <path d="M7.99999 14.5C8.73637 14.5 9.33332 13.903 9.33332 13.1667C9.33332 12.4303 8.73637 11.8333 7.99999 11.8333C7.26361 11.8333 6.66666 12.4303 6.66666 13.1667C6.66666 13.903 7.26361 14.5 7.99999 14.5Z"
+                                  fill="currentColor"/>
+                            <path d="M6.66666 2.5H9.33332V10.5H6.66666V2.5Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <label for="note-textarea" class="note-label">Notiz: </label>
+                    <textarea class="note-input note-textarea" id="note-textarea"></textarea>
+                    <div class="note-button-group">
+                        <button type="button" class="button-base button-outline note-button-cancel">abbrechen</button>
+                        <button type="button" class="button-base button-filled note-button-send">speichern</button>
+                    </div>
+                </form>
             </section>
         </main>
     </div>

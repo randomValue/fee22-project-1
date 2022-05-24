@@ -1,4 +1,3 @@
-
 .button-base {
     display: flex;
     justify-content: center;
@@ -15,10 +14,34 @@
     border: 1px solid var(--primary);
 }
 
+.button-outline:hover, .button-outline:focus-visible {
+    color: var(--primary-600);
+    border: 1px solid var(--primary-600);
+    box-shadow: inset 1px 0 0 var(--primary-600), inset 0 1px 0 var(--primary-600), inset -1px 0 0 var(--primary-600), inset 0 -1px 0 var(--primary-600)
+}
+
+.button-outline:active {
+    color: var(--primary-900);
+    border: 1px solid var(--primary-900);
+    box-shadow: inset 1px 0 0 var(--primary-900), inset 0 1px 0 var(--primary-900), inset -1px 0 0 var(--primary-900), inset 0 -1px 0 var(--primary-900)
+
+}
+
+
 .button-filled {
     color: var(--white);
     background-color: var(--primary);
     border: 1px solid var(--primary);
+}
+
+.button-filled:hover, .button-filled:focus-visible {
+    background-color: var(--primary-600);
+
+}
+
+.button-filled:active {
+    background-color: var(--primary-900);
+
 }
 
 .button-rounded {

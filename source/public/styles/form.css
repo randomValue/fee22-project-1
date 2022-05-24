@@ -1,0 +1,77 @@
+.note-form {
+    display: grid;
+    grid-template-columns: 128px 148px auto;
+    grid-template-rows: max-content max-content max-content max-content auto max-content;
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-3) var(--spacing-8) var(--spacing-6);
+    gap: var(--spacing-3)
+}
+
+.note-label {
+    grid-column: 1;
+}
+
+.note-input {
+    grid-column: 2;
+    border: 1px solid var(--primary);
+    border-radius: var(--rounded-sm);
+    height: var(--spacing-6);
+    padding: 0 var(--spacing-2);
+    font-size: 12px;
+    outline: none;
+}
+
+.note-input:hover {
+    border-color: var(--primary-900);
+}
+.note-input:focus {
+    border-color: var(--primary-900);
+}
+
+.note-textarea {
+    resize: none;
+    grid-column: 1/4;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: var(--spacing-2);
+}
+
+.note-button-group {
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-3)
+}
+
+@media (min-width: 374px) {
+    .note-button-group {
+        flex-flow: column;
+    }
+}
+
+.note-button-cancel {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: var(--rounded-sm);
+}
+
+@media (min-width: 374px) {
+    .note-button-cancel {
+        width: 100%;
+    }
+}
+
+.note-button-send {
+    color: var(--white);
+    background-color: var(--primary);
+    border-radius: var(--rounded-sm);
+}
+
+@media (min-width: 374px) {
+    .note-button-send {
+        width: 100%;
+    }
+}

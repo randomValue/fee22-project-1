@@ -1,15 +1,17 @@
-.note{
+.note {
     position: absolute;
     left: 0;
-    top:0;
+    top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: var(--white);
     z-index: 2;
+    display: grid;
+    grid-template-rows: max-content auto;
 }
 
-@media (min-width: 834px){
+@media (min-width: 894px) {
     .note {
         position: relative;
         z-index: auto;
@@ -33,11 +35,11 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    font-size: 10px;
+    font-size: 12px;
 }
 
 @media (min-width: 1194px) {
-    .header-date-container{
+    .header-date-container {
         gap: var(--spacing-3);
     }
 }
@@ -46,8 +48,8 @@
     display: none;
 }
 
-@media (min-width: 834px) {
-    .header-date-label{
+@media (min-width: 894px) {
+    .header-date-label {
         display: block;
     }
 }
@@ -59,25 +61,25 @@
     color: var(--primary-light)
 }
 
-.header-prio-label{
+.header-prio-label {
     color: var(--white);
-    font-size: 10px;
+    font-size: 12px;
     display: none;
 }
 
-@media (min-width: 834px) {
-    .header-prio-label{
+@media (min-width: 894px) {
+    .header-prio-label {
         display: block;
     }
 }
 
-.header-actions{
+.header-actions {
     display: flex;
     gap: var(--spacing-3);
 }
 
 
-.note-content{
+.note-content {
     padding: 0 var(--spacing-8);
 }
 
@@ -89,11 +91,12 @@
     font-size: 16px;
 }
 
-.note-text:first-of-type{
+.note-text:first-of-type {
     margin-top: 0;
 }
+
 .note-text {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 14px;
     font-weight: 400;
 }
@@ -104,12 +107,45 @@
     color: var(--primary);
 }
 
+.edit-button:hover, .edit-button:focus-visible {
+    background-color: var(--green-100);
+    box-shadow: none;
+}
+
+.edit-button:active {
+    background-color: var(--green);
+    color: var(--white);
+    box-shadow: none;
+}
+
 .done-button {
     border: 1px solid var(--white);
     color: var(--white);
+    box-shadow: none;
+}
+
+.done-button:hover, .done-button:focus-visible {
+    border: 1px solid var(--green);
+    color: var(--green);
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.done-button:active {
+    color: var(--white);
+    background-color: var(--green);
+    border: none;
 }
 
 .delete-button {
     background-color: var(--orange);
     color: var(--white);
+}
+
+.delete-button:hover, .delete-button:focus-visible {
+    background-color: var(--orange-600);
+}
+
+.delete-button:active {
+    background-color: var(--orange-900);
 }

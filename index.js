@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, './source/public')));
 
 
 
-app.get("/:note/:some", (req, res) => {
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, './source/public/index.html'))
 })
 
