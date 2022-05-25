@@ -9,7 +9,7 @@ export const loopThroughChildren = (composition, currentNode) => {
         for (let i = 0; i < amount; i++) {
             const childId = currentNode.children[currentNode.children.length - 1 - i]
             const childNode = mutables.Dom[childId]
-            currentNode.domNode.removeChild(childNode.domNode)
+            childNode && currentNode.domNode.removeChild(childNode.domNode)
             delete mutables.Dom[childNode]
         }
         currentNode.children = currentNode.children.slice(0, -1)

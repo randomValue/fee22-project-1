@@ -12,7 +12,11 @@ export const domNode = (node) => {
     }
     let element
     if (createdNode.type) {
-        element = document.createElement(createdNode.type)
+        if (createdNode.type.match(/(svg|path)/g)) {
+            element = document.createElementNS(`http://www.w3.org/2000/svg`, createdNode.type)
+        } else {
+            element = document.createElement(createdNode.type)
+        }
     }
 
     createAttributes(createdNode.props, element, createdNode)

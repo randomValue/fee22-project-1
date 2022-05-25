@@ -44,7 +44,15 @@ export const vNode = {
             this.cachedIndex = 0
             this.cachedEffects = 0
             this.props = this.nextProps
-            const composition = typeof Comp === "function" ? Comp(this.props) : Comp
+            let composition
+            if (typeof Comp === "function") {
+                composition = Comp(this.props)
+            } else if (typeof Comp.type === 'function') {
+                composition = Comp.type(this.props)
+            } else {
+                composition = Comp
+            }
+
             this.cachedIndex = cachedIndex
 
             createAttributes(composition.props, this.domNode)
