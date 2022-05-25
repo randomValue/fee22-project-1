@@ -36,8 +36,9 @@ export const buildVDom = (virtualNode, id, parentNode) => {
 
     parentNode.appendChild(element)
 
+
     createdNode?.children?.forEach((child, i) => {
-        if (typeof child === "string") {
+        if (typeof child === "string" || typeof child === "number") {
             const textElement = document.createTextNode(child)
             element.appendChild(textElement)
             node.children[i] = textElement

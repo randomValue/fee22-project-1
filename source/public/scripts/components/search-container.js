@@ -1,6 +1,7 @@
 import {createElement} from "../rective/create-element.js";
 import {FilterButton, SearchInput} from "./search-input.js";
 import {useState} from "../rective/use-state.js";
+import {useEffect} from "../rective/use-effect.js";
 
 export const ToggleFilterButton = ({handleClick}) => {
     return createElement('button', {
@@ -14,15 +15,36 @@ export const ToggleFilterButton = ({handleClick}) => {
     )
 }
 
+const filterGroup = {current: undefined}
+const filterGroupContainer = {current: undefined}
+
 export const SearchContainer = () => {
-    const [toggleSearch, setToggleSearch] = useState(false)
+    const [toggleSearch, setToggleSearch] = useState(true)
+
+    useEffect(() => {
+        if (!filterGroup.current || !filterGroupContainer.current) {
+            return
+        }
+        filterGroupContainer.current.style.width = `${!toggleSearch ? filterGroup.current.getBoundingClientRect().width : 0}px`
+    }, [toggleSearch])
 
     return createElement('div', {class: 'search-container'},
         createElement(SearchInput, {toggleSearch, setToggleSearch}),
-        createElement('div', {class: 'filter-group', style: {display: toggleSearch ? 'none' : 'flex'}},
-            createElement(FilterButton, {label: 'Datum'}),
-            createElement(FilterButton, {label: 'Relevanz'}),
-            createElement(FilterButton, {label: 'Erstellung'}),
+        createElement('div', {
+                class: "filter-group-container",
+                ref: (ref) => {
+                    filterGroupContainer.current = ref
+                }
+            },
+            createElement('div', {
+                    class: 'filter-group', ref: (ref) => {
+                        filterGroup.current = ref
+                    }
+                },
+                createElement(FilterButton, {label: 'Datum', disabled: toggleSearch ? true : undefined}),
+                createElement(FilterButton, {label: 'Relevanz', disabled: toggleSearch ? true : undefined}),
+                createElement(FilterButton, {label: 'Erstellung', disabled: toggleSearch ? true : undefined}),
+            )
         ),
         createElement(ToggleFilterButton, {
             handleClick: () => {

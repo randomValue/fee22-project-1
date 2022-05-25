@@ -1,14 +1,18 @@
 import {createElement} from "../rective/create-element.js";
 
-export const FilterButton = ({label}) => {
-    return createElement('button', {class: 'button-base button-outline button-rounded'}, label)
+export const FilterButton = ({label, disabled}) => {
+    return createElement('button', {class: 'button-base button-outline button-rounded', disabled}, label)
 }
 
+const inputRef = {current: undefined}
 export const SearchInput = ({toggleSearch, setToggleSearch}) => {
+
     return createElement('div', {class: `search-input-container ${!toggleSearch && 'search-input-collapsed'}`},
         createElement('input', {
             class: 'search-input', name: 'search', type: 'text', onFocus: () => {
                 setToggleSearch(true)
+            }, ref: (ref) => {
+                inputRef.current = ref
             }
         }),
         createElement('button', {

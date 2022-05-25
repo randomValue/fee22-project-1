@@ -48,7 +48,7 @@ export const vNode = {
             if (typeof Comp === "function") {
                 composition = Comp(this.props)
             } else if (typeof Comp.type === 'function') {
-                composition = Comp.type(this.props)
+                composition = Comp.type(Comp.props)
             } else {
                 composition = Comp
             }

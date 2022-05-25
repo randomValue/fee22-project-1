@@ -8,7 +8,12 @@ export const createAttributes = (props, node) => {
             }, '')
             node.setAttribute(key, style)
         } else {
-            node.setAttribute(key, value)
+            if(value === undefined) {
+                node.removeAttribute(key)
+
+            }else {
+                node.setAttribute(key, value)
+            }
         }
     })
 }

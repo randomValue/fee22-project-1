@@ -15,7 +15,7 @@ export const loopThroughChildren = (composition, currentNode) => {
         currentNode.children = currentNode.children.slice(0, -1)
     }
     composition.children.forEach((child, i) => {
-        if (typeof child === "string" && child) {
+        if ((typeof child === "string" || typeof child === "number") && child) {
             const textNode = currentNode.children[i]
             if (textNode.nodeValue && textNode.nodeValue !== child) {
                 textNode.nodeValue = child
@@ -49,7 +49,6 @@ export const loopThroughChildren = (composition, currentNode) => {
                 currentNode.domNode.insertBefore(node.domNode, domChildren[i])
             }
             node.render(child)
-            node.node = child
         } else {
             currentNode.children[i].nodeValue = child
             if (!currentNode.node) {
