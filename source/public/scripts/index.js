@@ -2,6 +2,7 @@ import {createElement} from "./rective/create-element.js";
 import {render} from "./rective/reactive.js";
 import {SideNav} from "./components/side-nav.js";
 import {NoteContent} from "./components/note-content.js";
+import {useState} from "./rective/use-state.js";
 
 const mock = [
     {prio: 1, text: 'Hello 1'},
@@ -23,9 +24,10 @@ let originElement = undefined
 
 
 const App = () => {
+    const [data, setData] = useState(mock)
     return createElement('main', {
         class: "main",
-    }, createElement(SideNav, null), createElement(NoteContent, null))
+    }, createElement(SideNav, {data, setData}), createElement(NoteContent, null))
 }
 
 const app = document.querySelector('#app')

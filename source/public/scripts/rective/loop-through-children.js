@@ -10,7 +10,7 @@ export const loopThroughChildren = (composition, currentNode) => {
             const childId = currentNode.children[currentNode.children.length - 1 - i]
             const childNode = mutables.Dom[childId]
             childNode && currentNode.domNode.removeChild(childNode.domNode)
-            delete mutables.Dom[childNode]
+            delete mutables.Dom[childId]
         }
         currentNode.children = currentNode.children.slice(0, -1)
     }
@@ -32,7 +32,7 @@ export const loopThroughChildren = (composition, currentNode) => {
         if (!child) {
             return
         }
-        if ((currentNode.children[i] === null && child) || (child && node === undefined && typeof child !== 'string')) {
+        if ((currentNode.children[i] === null && child) || (child && node === undefined && (typeof child !== 'string'))) {
             currentNode.children[i] = currentNode.id + "_" + i
             buildVDom(child, currentNode.children[i], currentNode.domNode)
             return
@@ -45,7 +45,7 @@ export const loopThroughChildren = (composition, currentNode) => {
                 node.domNode = element
             }
             const domChildren = currentNode.domNode.children
-            if(domChildren[i] !== node.domNode){
+            if (domChildren[i] !== node.domNode) {
                 currentNode.domNode.insertBefore(node.domNode, domChildren[i])
             }
             node.render(child)

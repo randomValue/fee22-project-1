@@ -18,7 +18,7 @@ export const ToggleFilterButton = ({handleClick}) => {
 const filterGroup = {current: undefined}
 const filterGroupContainer = {current: undefined}
 
-export const SearchContainer = () => {
+export const SearchContainer = ({setData}) => {
     const [toggleSearch, setToggleSearch] = useState(true)
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export const SearchContainer = () => {
     }, [toggleSearch])
 
     return createElement('div', {class: 'search-container'},
-        createElement(SearchInput, {toggleSearch, setToggleSearch}),
+        createElement(SearchInput, {toggleSearch, setToggleSearch, setData}),
         createElement('div', {
                 class: "filter-group-container",
                 ref: (ref) => {

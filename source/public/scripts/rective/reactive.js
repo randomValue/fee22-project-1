@@ -4,7 +4,7 @@ import {domNode} from "./dom-node.js"
 import {createRef} from "./create-ref.js";
 
 export const buildVDom = (virtualNode, id, parentNode) => {
-    if (typeof virtualNode === "string") {
+    if (typeof virtualNode === "string" || typeof virtualNode === "number") {
         return
     }
     const node = {...vNode}

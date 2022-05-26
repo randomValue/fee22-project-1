@@ -31,11 +31,11 @@ export const ListItem = ({text, title, isActive, setIsActive, index}) => {
     )
 }
 
-export const List = () => {
+export const List = ({data}) => {
     const [activeIndex, setActiveIndex] = useState(0)
 
     return createElement('ul', {class: 'nav-list'},
-        mock.map((item, index) => {
+        data.map((item, index) => {
             return createElement(ListItem, {
                 title: item.text,
                 text: item.prio,
@@ -48,9 +48,9 @@ export const List = () => {
     )
 }
 
-export const NoteList = () => {
+export const NoteList = ({data}) => {
     return createElement('nav', {class: 'nav'},
-        createElement(List, null)
+        createElement(List, {data})
     )
 }
 
