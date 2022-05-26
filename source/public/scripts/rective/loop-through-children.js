@@ -1,5 +1,5 @@
 import {mutables} from "./mutables.js";
-import {buildVDom} from "./reactive.js";
+import {buildVDom} from "./core.js";
 import {domNode} from "./dom-node.js";
 
 export const loopThroughChildren = (composition, currentNode) => {

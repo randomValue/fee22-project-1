@@ -1,5 +1,5 @@
 import {createElement} from "./rective/create-element.js";
-import {render} from "./rective/reactive.js";
+import {render} from "./rective/core.js";
 import {SideNav} from "./components/side-nav.js";
 import {NoteContent} from "./components/note-content.js";
 import {useState} from "./rective/use-state.js";
