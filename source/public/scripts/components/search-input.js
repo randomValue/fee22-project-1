@@ -1,13 +1,15 @@
 import {createElement} from "../rective/create-element.js";
+import {backUpData, useStore} from "../index.js";
 
 export const FilterButton = ({label, disabled}) => {
     return createElement('button', {class: 'button-base button-outline button-rounded', disabled}, label)
 }
 
-const initialData = []
 
 const inputRef = {current: undefined}
-export const SearchInput = ({toggleSearch, setToggleSearch, setData}) => {
+export const SearchInput = ({toggleSearch, setToggleSearch}) => {
+
+    const [, setData] = useStore()
 
     return createElement('div', {class: `search-input-container ${!toggleSearch && 'search-input-collapsed'}`},
         createElement('input', {
@@ -17,10 +19,10 @@ export const SearchInput = ({toggleSearch, setToggleSearch, setData}) => {
                 inputRef.current = ref
             }, onInput: (e) => {
                 setData(state => {
-                    if (initialData.length === 0) {
-                        initialData.push(...state)
+                    if (backUpData.default.length === 0) {
+                        backUpData.default.push(...state)
                     }
-                    const filtered = initialData.filter(item => item.text.match(e.target.value))
+                    const filtered = backUpData.default.filter(item => item.text.toLowerCase().match(e.target.value.toLowerCase()))
                     return filtered
                 })
             }

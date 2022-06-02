@@ -1,15 +1,17 @@
 import {createElement} from "../rective/create-element.js";
 import {SearchContainer} from "./search-container.js";
 import {NoteList} from "./note-list.js";
+import {backUpData, useStore} from "../index.js";
 
-export const SideNav = ({data, setData}) => {
+export const SideNav = () => {
+    const [data, setStore] = useStore()
     return createElement('div', {class: 'side-nav'},
-        createElement(SearchContainer, {setData}),
+        createElement(SearchContainer),
         createElement('div', {class: 'add-button-container'},
             createElement('button', {
                     class: 'button-base add-button', onClick: () => {
-                        const newData = [...data, data[0]]
-                        setData(newData)
+                        backUpData.default.push({...backUpData.default[0], prio: backUpData.default.length+1, text: `Hello ${backUpData.default.length+1}`})
+                        setStore([...backUpData.default])
                     }
                 },
                 createElement('svg', {width: "24", height: "24", viewBox: "0 0 24 24", fill: "none"},
@@ -17,6 +19,6 @@ export const SideNav = ({data, setData}) => {
                 )
             )
         ),
-        createElement(NoteList, {data})
+        createElement(NoteList)
     )
 }

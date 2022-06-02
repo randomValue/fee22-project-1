@@ -2,6 +2,7 @@ import {createElement} from "../rective/create-element.js";
 import {FilterButton, SearchInput} from "./search-input.js";
 import {useState} from "../rective/use-state.js";
 import {useEffect} from "../rective/use-effect.js";
+import {useStore} from "../index.js";
 
 export const ToggleFilterButton = ({handleClick}) => {
     return createElement('button', {
@@ -18,7 +19,7 @@ export const ToggleFilterButton = ({handleClick}) => {
 const filterGroup = {current: undefined}
 const filterGroupContainer = {current: undefined}
 
-export const SearchContainer = ({setData}) => {
+export const SearchContainer = () => {
     const [toggleSearch, setToggleSearch] = useState(true)
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export const SearchContainer = ({setData}) => {
     }, [toggleSearch])
 
     return createElement('div', {class: 'search-container'},
-        createElement(SearchInput, {toggleSearch, setToggleSearch, setData}),
+        createElement(SearchInput, {toggleSearch, setToggleSearch}),
         createElement('div', {
                 class: "filter-group-container",
                 ref: (ref) => {

@@ -132,12 +132,6 @@ textarea {
     grid-template-columns: 312px auto;
 }
 
-@media (min-width: 1194px) {
-    .main {
-        height: 574px;
-    }
-}
-
 .active-prio {
     color: var(--red);
 }

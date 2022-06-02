@@ -19,8 +19,8 @@ export const useEffect = (callback, deps) => {
         if (!node.prevDeps[index]) {
             node.prevDeps[index] = []
         }
-        deps.forEach((item, index) => {
-            node.prevDeps[index][index] = destructedElement(item)
+        deps.forEach((item, i) => {
+            node.prevDeps[index][i] = destructedElement(item)
         })
         callback()
     }

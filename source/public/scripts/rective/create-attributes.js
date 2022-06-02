@@ -12,7 +12,7 @@ export const createAttributes = (props, node) => {
                 node.removeAttribute(key)
 
             }else {
-                node.setAttribute(key, value)
+                node?.setAttribute(key, value)
             }
         }
     })

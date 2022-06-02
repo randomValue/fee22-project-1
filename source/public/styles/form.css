@@ -43,12 +43,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: var(--spacing-3)
+    gap: var(--spacing-3);
+    flex-flow: column;
 }
 
-@media (min-width: 374px) {
+@media (min-width: 894px) {
     .note-button-group {
-        flex-flow: column;
+        flex-flow: row;
     }
 }
 
@@ -58,7 +59,7 @@
     border-radius: var(--rounded-sm);
 }
 
-@media (min-width: 374px) {
+@media (max-width: 894px) {
     .note-button-cancel {
         width: 100%;
     }
@@ -70,7 +71,7 @@
     border-radius: var(--rounded-sm);
 }
 
-@media (min-width: 374px) {
+@media (max-width: 894px) {
     .note-button-send {
         width: 100%;
     }

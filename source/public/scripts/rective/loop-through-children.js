@@ -15,24 +15,37 @@ export const loopThroughChildren = (composition, currentNode) => {
         currentNode.children = currentNode.children.slice(0, -1)
     }
     composition.children.forEach((child, i) => {
+        const currentChild = currentNode.children[i]
         if ((typeof child === "string" || typeof child === "number") && child) {
-            const textNode = currentNode.children[i]
-            if (textNode.nodeValue && textNode.nodeValue !== child) {
-                textNode.nodeValue = child
+            if (currentChild?.nodeValue && currentChild?.nodeValue !== child) {
+                currentChild.nodeValue = child
+            } else {
+                const node = mutables.Dom[currentChild]
+                if(node && node.domNode){
+                    const textNode = document.createTextNode(child)
+                    currentNode.domNode.insertBefore(textNode, node.domNode)
+                    currentNode.domNode.removeChild(node.domNode)
+                    delete mutables.Dom[currentChild]
+                    currentNode.children[i] = textNode
+                }
             }
+            return;
         }
-        const node = mutables.Dom[currentNode.children[i]]
+        const node = mutables.Dom[currentChild]
 
         if (!child && node?.node) {
             currentNode.domNode.removeChild(node.domNode)
-            delete mutables.Dom[currentNode.children[i]]
+            delete mutables.Dom[currentChild]
             currentNode.children[i] = null
             return
         }
         if (!child) {
             return
         }
-        if ((currentNode.children[i] === null && child) || (child && node === undefined && (typeof child !== 'string'))) {
+        if ((currentChild === null && child) || (child && node === undefined && (typeof child !== 'string'))) {
+            if(currentChild?.nodeType){
+                currentNode.domNode.removeChild(currentChild)
+            }
             currentNode.children[i] = currentNode.id + "_" + i
             buildVDom(child, currentNode.children[i], currentNode.domNode)
             return
@@ -50,15 +63,15 @@ export const loopThroughChildren = (composition, currentNode) => {
             }
             node.render(child)
         } else {
+            if(!currentChild){
+                buildVDom(child, currentNode.children[i], currentNode.domNode)
+                return;
+            }
             currentNode.children[i].nodeValue = child
             if (!currentNode.node) {
-                currentNode.domNode.insertBefore(currentNode.children[i], currentNode.children[i + 1])
+                currentNode.domNode.insertBefore(currentChild, currentNode.children[i + 1])
             }
             return
-        }
-
-        if (currentNode.children[i].node) {
-            currentNode.children[i].node = child
         }
     })
 }
