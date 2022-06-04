@@ -1,8 +1,8 @@
-import { createElement } from "../rective/create-element.js";
-import { PrioElement } from "./prio-element.js";
-import { useState } from "../rective/use-state.js";
-import { useActiveNote, useStore } from "./store.js";
-import { useEffect } from "../rective/use-effect.js";
+import { createElement } from '../rective/create-element.js'
+import { PrioElement } from './prio-element.js'
+import { useState } from '../rective/use-state.js'
+import { useActiveNote, useStore } from './store.js'
+import { useEffect } from '../rective/use-effect.js'
 
 export const ListItem = ({
   subtitle,
@@ -13,26 +13,26 @@ export const ListItem = ({
   index,
 }) =>
   createElement(
-    "li",
-    { class: `nav-item ${isActive ? "nav-item-active" : ""}` },
+    'li',
+    { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
     createElement(
-      "button",
+      'button',
       {
-        class: `nav-button ${isActive ? "nav-button-active" : ""}`,
+        class: `nav-button ${isActive ? 'nav-button-active' : ''}`,
         disabled: isActive ? true : undefined,
         onClick: () => {
-          setIsActive(index);
+          setIsActive(index)
         },
       },
       createElement(
-        "span",
-        { class: "nav-button-text" },
-        createElement("span", { class: "nav-button-title" }, title),
-        createElement("span", null, subtitle)
+        'span',
+        { class: 'nav-button-text' },
+        createElement('span', { class: 'nav-button-title' }, title),
+        createElement('span', null, subtitle)
       ),
       createElement(PrioElement, { prio })
     )
-  );
+  )
 export const ListItemDone = ({
   subtitle,
   title,
@@ -41,41 +41,41 @@ export const ListItemDone = ({
   index,
 }) =>
   createElement(
-    "li",
-    { class: `nav-item ${isActive ? "nav-item-active" : ""}` },
+    'li',
+    { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
     createElement(
-      "button",
+      'button',
       {
         class: `nav-button nav-button-done ${
-          isActive ? "nav-button-active" : ""
+          isActive ? 'nav-button-active' : ''
         }`,
         disabled: isActive ? true : undefined,
         onClick: () => {
-          setIsActive(index);
+          setIsActive(index)
         },
       },
       createElement(
-        "span",
-        { class: "nav-button-text" },
-        createElement("span", { class: "nav-button-title" }, title),
-        createElement("span", null, subtitle)
+        'span',
+        { class: 'nav-button-text' },
+        createElement('span', { class: 'nav-button-title' }, title),
+        createElement('span', null, subtitle)
       )
     )
-  );
+  )
 
 export const List = () => {
-  const [data] = useStore();
-  const [, setActiveNote] = useActiveNote();
+  const [data] = useStore()
+  const [, setActiveNote] = useActiveNote()
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
-    setActiveNote(data[activeIndex]);
-  }, [activeIndex]);
+    setActiveNote(data[activeIndex])
+  }, [activeIndex])
 
   return createElement(
-    "ul",
-    { class: "nav-list" },
+    'ul',
+    { class: 'nav-list' },
     data.map((item, index) =>
       createElement(item.done ? ListItemDone : ListItem, {
         title: item.title,
@@ -87,9 +87,9 @@ export const List = () => {
         setIsActive: setActiveIndex,
       })
     ),
-    data.length === 0 && "Leider nichts gefunden"
-  );
-};
+    data.length === 0 && 'Leider nichts gefunden'
+  )
+}
 
 export const NoteList = () =>
-  createElement("nav", { class: "nav" }, createElement(List));
+  createElement('nav', { class: 'nav' }, createElement(List))

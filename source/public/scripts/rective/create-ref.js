@@ -1,10 +1,10 @@
 export const createRef = (node, element) => {
   if (node.ref === undefined) {
-    return;
+    return
   }
-  if (typeof node.ref === "function") {
-    node.ref(element);
+  if (typeof node.ref === 'function') {
+    node.ref(element)
   } else {
-    node.ref = element;
+    node.ref = element
   }
-};
+}

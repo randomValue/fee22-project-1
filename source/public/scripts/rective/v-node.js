@@ -1,8 +1,8 @@
-import { mutables } from "./mutables.js";
-import { isSame } from "./is-same.js";
-import { loopThroughChildren } from "./loop-through-children.js";
-import { createAttributes } from "./create-attributes.js";
-import { createEvents } from "./create-events.js";
+import { mutables } from './mutables.js'
+import { isSame } from './is-same.js'
+import { loopThroughChildren } from './loop-through-children.js'
+import { createAttributes } from './create-attributes.js'
+import { createEvents } from './create-events.js'
 
 export const vNode = {
   state: undefined,
@@ -18,52 +18,52 @@ export const vNode = {
   prevDeps: undefined,
   cachedEffects: 0,
   render(Comp, cachedIndex) {
-    mutables.identifier = this.id;
+    mutables.identifier = this.id
     const sameState = isSame(
       this.state[cachedIndex],
       this.nextState[cachedIndex]
-    );
-    const sameProps = isSame(this.props, this.nextProps);
-    let sameNode = true;
-    if (typeof Comp !== "function") {
-      sameNode = isSame(this.node, Comp);
+    )
+    const sameProps = isSame(this.props, this.nextProps)
+    let sameNode = true
+    if (typeof Comp !== 'function') {
+      sameNode = isSame(this.node, Comp)
     }
     if (Comp && (!sameState || !sameProps || !sameNode)) {
       this.nextState.forEach((entry, index) => {
         if (Array.isArray(entry)) {
-          this.state[index] = [...entry];
-          return;
+          this.state[index] = [...entry]
+          return
         }
         if (
-          typeof entry === "object" &&
+          typeof entry === 'object' &&
           !Array.isArray(entry) &&
           entry !== null
         ) {
-          this.state[index] = { ...entry };
-          return;
+          this.state[index] = { ...entry }
+          return
         }
-        this.state[index] = entry;
-      });
-      this.cachedIndex = 0;
-      this.cachedEffects = 0;
-      this.props = this.nextProps;
-      let composition;
-      if (typeof Comp === "function") {
-        composition = Comp(this.props);
-      } else if (typeof Comp.type === "function") {
-        composition = Comp.type(Comp.props);
+        this.state[index] = entry
+      })
+      this.cachedIndex = 0
+      this.cachedEffects = 0
+      this.props = this.nextProps
+      let composition
+      if (typeof Comp === 'function') {
+        composition = Comp(this.props)
+      } else if (typeof Comp.type === 'function') {
+        composition = Comp.type(Comp.props)
       } else {
-        composition = Comp;
+        composition = Comp
       }
 
-      this.cachedIndex = cachedIndex;
+      this.cachedIndex = cachedIndex
 
-      createAttributes(composition.props, this.domNode);
-      createEvents(composition.synth, this.domNode, this.node);
+      createAttributes(composition.props, this.domNode)
+      createEvents(composition.synth, this.domNode, this.node)
 
-      this.node = composition;
+      this.node = composition
 
-      loopThroughChildren(composition, this);
+      loopThroughChildren(composition, this)
     }
   },
-};
+}

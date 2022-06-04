@@ -1,2 +1,2 @@
-const identifier = Math.round(Math.random() * 100000000);
-export const mutables = { Dom: {}, identifier };
+const identifier = Math.round(Math.random() * 100000000)
+export const mutables = { Dom: {}, identifier }

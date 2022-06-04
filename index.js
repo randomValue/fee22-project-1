@@ -1,20 +1,18 @@
-import express from 'express';
-import * as path from "path";
+import express from 'express'
+import * as path from 'path'
 
-const __dirname = path.resolve();
+const dirname = path.resolve()
 
-const app = express();
-const port = 3000;
+const app = express()
+const port = 3000
 
-app.use(express.static(path.join(__dirname, './source/public')));
+app.use(express.static(path.join(dirname, './source/public')))
 
-
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, './source/public/index.html'))
+app.get('/', (req, res) => {
+  res.sendFile(path.join(dirname, './source/public/index.html'))
 })
 
 app.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`Example app listening at http://localhost:${port}`);
-});
+  // eslint-disable-next-line no-console
+  console.log(`Example app listening at http://localhost:${port}`)
+})

@@ -11,11 +11,13 @@
   "extends": ["eslint:recommended", "airbnb/base", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"],
+//    "prettier/prettier": ["error"],
     "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "import/extensions": "off",
     "consistent-return": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"]
   }
 }
