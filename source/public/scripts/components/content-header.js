@@ -1,9 +1,8 @@
 import { createElement } from '../reactive/create-element.js'
 import { PrioElement } from './prio-element.js'
 import { ContentHeaderButtons } from './content-header-buttons.js'
-import { useActiveNote } from './store.js'
-
-const formateDate = (date) => `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+import { useActiveNote } from '../store.js'
+import { formateDate } from '../lib/formate-date.js'
 
 export const ContentHeader = () => {
   const [activeNote] = useActiveNote()

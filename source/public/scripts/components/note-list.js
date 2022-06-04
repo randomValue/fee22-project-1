@@ -1,10 +1,12 @@
 import { createElement } from '../reactive/create-element.js'
 import { PrioElement } from './prio-element.js'
 import { useState } from '../reactive/use-state.js'
-import { useActiveNote, useStore } from './store.js'
+import { useActiveNote, useStore } from '../store.js'
 import { useEffect } from '../reactive/use-effect.js'
+import { ChevronRightIcon } from './icons/chevron-right-icon.js'
+import { formateDate } from '../lib/formate-date.js'
 
-export const ListItem = ({ subtitle, title, prio, isActive, setIsActive, index }) =>
+export const ListItem = ({ subtitle, title, date, prio, isActive, setIsActive, index }) =>
   createElement(
     'li',
     { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
@@ -23,7 +25,14 @@ export const ListItem = ({ subtitle, title, prio, isActive, setIsActive, index }
         createElement('span', { class: 'nav-button-title' }, title),
         createElement('span', null, subtitle)
       ),
-      createElement(PrioElement, { prio })
+      createElement(
+        'span',
+        { class: 'nav-button-date-prio' },
+        createElement(PrioElement, { prio }),
+        // eslint-disable-next-line no-undef
+        createElement('span', null, formateDate(date))
+      ),
+      createElement(ChevronRightIcon)
     )
   )
 export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) =>
@@ -44,7 +53,8 @@ export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) 
         { class: 'nav-button-text' },
         createElement('span', { class: 'nav-button-title' }, title),
         createElement('span', null, subtitle)
-      )
+      ),
+      createElement(ChevronRightIcon)
     )
   )
 
@@ -65,6 +75,7 @@ export const List = () => {
       createElement(item.done ? ListItemDone : ListItem, {
         title: item.title,
         subtitle: item.subtitle,
+        date: item.dueDate,
         prio: item.prio,
         key: `note-list-item-${index}`,
         isActive: activeIndex === index,

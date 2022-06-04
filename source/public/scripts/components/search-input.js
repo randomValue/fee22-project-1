@@ -1,5 +1,5 @@
 import { createElement } from '../reactive/create-element.js'
-import { backUpData, useStore } from './store.js'
+import { backUpData, useStore } from '../store.js'
 
 export const FilterButton = ({ label, disabled }) =>
   createElement('button', { class: 'button-base button-outline button-rounded', disabled }, label)

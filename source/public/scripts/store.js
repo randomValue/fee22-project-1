@@ -1,5 +1,5 @@
-import { create } from '../reactive/store.js'
-import { mock } from '../mock.js'
+import { create } from './reactive/store.js'
+import { mock } from './mock.js'
 
 export const useStore = create([...mock])
 
