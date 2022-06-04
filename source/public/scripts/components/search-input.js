@@ -1,4 +1,4 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 import { backUpData, useStore } from './store.js'
 
 export const FilterButton = ({ label, disabled }) =>

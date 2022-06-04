@@ -1,17 +1,10 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 import { PrioElement } from './prio-element.js'
-import { useState } from '../rective/use-state.js'
+import { useState } from '../reactive/use-state.js'
 import { useActiveNote, useStore } from './store.js'
-import { useEffect } from '../rective/use-effect.js'
+import { useEffect } from '../reactive/use-effect.js'
 
-export const ListItem = ({
-  subtitle,
-  title,
-  prio,
-  isActive,
-  setIsActive,
-  index,
-}) =>
+export const ListItem = ({ subtitle, title, prio, isActive, setIsActive, index }) =>
   createElement(
     'li',
     { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
@@ -33,22 +26,14 @@ export const ListItem = ({
       createElement(PrioElement, { prio })
     )
   )
-export const ListItemDone = ({
-  subtitle,
-  title,
-  isActive,
-  setIsActive,
-  index,
-}) =>
+export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) =>
   createElement(
     'li',
     { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
     createElement(
       'button',
       {
-        class: `nav-button nav-button-done ${
-          isActive ? 'nav-button-active' : ''
-        }`,
+        class: `nav-button nav-button-done ${isActive ? 'nav-button-active' : ''}`,
         disabled: isActive ? true : undefined,
         onClick: () => {
           setIsActive(index)
@@ -91,5 +76,4 @@ export const List = () => {
   )
 }
 
-export const NoteList = () =>
-  createElement('nav', { class: 'nav' }, createElement(List))
+export const NoteList = () => createElement('nav', { class: 'nav' }, createElement(List))

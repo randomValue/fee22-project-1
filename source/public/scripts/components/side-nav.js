@@ -1,4 +1,4 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 import { SearchContainer } from './search-container.js'
 import { NoteList } from './note-list.js'
 import { backUpData, useStore } from './store.js'

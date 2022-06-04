@@ -1,4 +1,4 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 
 export const Content = () =>
   createElement(

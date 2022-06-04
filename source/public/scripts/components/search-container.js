@@ -1,7 +1,7 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 import { FilterButton, SearchInput } from './search-input.js'
-import { useState } from '../rective/use-state.js'
-import { useEffect } from '../rective/use-effect.js'
+import { useState } from '../reactive/use-state.js'
+import { useEffect } from '../reactive/use-effect.js'
 
 export const ToggleFilterButton = ({ handleClick }) =>
   createElement(

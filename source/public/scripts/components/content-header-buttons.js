@@ -1,4 +1,4 @@
-import { createElement } from '../rective/create-element.js'
+import { createElement } from '../reactive/create-element.js'
 
 export const ContentHeaderButtons = () =>
   createElement(
@@ -25,8 +25,7 @@ export const ContentHeaderButtons = () =>
     createElement(
       'button',
       {
-        class:
-          'button-base button-outline icon-button-small button-rounded done-button',
+        class: 'button-base button-outline icon-button-small button-rounded done-button',
       },
       createElement(
         'svg',
