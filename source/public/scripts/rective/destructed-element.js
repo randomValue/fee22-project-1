@@ -1,9 +1,9 @@
 export const destructedElement = (el) => {
-    if (Array.isArray(el)) {
-        return [...el]
-    } else if (typeof el === "object") {
-        return {...el}
-    } else {
-        return el
-    }
-}
+  if (Array.isArray(el)) {
+    return [...el];
+  }
+  if (typeof el === "object") {
+    return { ...el };
+  }
+  return el;
+};

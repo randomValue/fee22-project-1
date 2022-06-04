@@ -1,7 +1,11 @@
-import {createElement} from "../rective/create-element.js";
-import {ContentHeader} from "./content-header.js";
-import {Content} from "./content.js";
+import { createElement } from "../rective/create-element.js";
+import { ContentHeader } from "./content-header.js";
+import { Content } from "./content.js";
 
-export const NoteContent = () => {
-    return createElement('section', {class: 'note'}, createElement(ContentHeader), createElement(Content))
-}
+export const NoteContent = () =>
+  createElement(
+    "section",
+    { class: "note" },
+    createElement(ContentHeader),
+    createElement(Content)
+  );
