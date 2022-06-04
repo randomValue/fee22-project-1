@@ -1,56 +1,56 @@
 .button-base {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 var(--spacing-2);
-    height: var(--spacing-6);
-    border: none;
-    outline: none;
-    white-space: nowrap;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--spacing-2);
+  height: var(--spacing-6);
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .button-outline {
-    color: var(--primary);
-    border: 1px solid var(--primary);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
-.button-outline:hover, .button-outline:focus-visible {
-    color: var(--primary-600);
-    border: 1px solid var(--primary-600);
-    box-shadow: inset 1px 0 0 var(--primary-600), inset 0 1px 0 var(--primary-600), inset -1px 0 0 var(--primary-600), inset 0 -1px 0 var(--primary-600)
+.button-outline:hover,
+.button-outline:focus-visible {
+  color: var(--primary-600);
+  border: 1px solid var(--primary-600);
+  box-shadow: inset 1px 0 0 var(--primary-600), inset 0 1px 0 var(--primary-600),
+    inset -1px 0 0 var(--primary-600), inset 0 -1px 0 var(--primary-600);
 }
 
 .button-outline:active {
-    color: var(--primary-900);
-    border: 1px solid var(--primary-900);
-    box-shadow: inset 1px 0 0 var(--primary-900), inset 0 1px 0 var(--primary-900), inset -1px 0 0 var(--primary-900), inset 0 -1px 0 var(--primary-900)
-
+  color: var(--primary-900);
+  border: 1px solid var(--primary-900);
+  box-shadow: inset 1px 0 0 var(--primary-900), inset 0 1px 0 var(--primary-900),
+    inset -1px 0 0 var(--primary-900), inset 0 -1px 0 var(--primary-900);
 }
-
 
 .button-filled {
-    color: var(--white);
-    background-color: var(--primary);
-    border: 1px solid var(--primary);
+  color: var(--white);
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
-.button-filled:hover, .button-filled:focus-visible {
-    background-color: var(--primary-600);
-
+.button-filled:hover,
+.button-filled:focus-visible {
+  background-color: var(--primary-600);
 }
 
 .button-filled:active {
-    background-color: var(--primary-900);
-
+  background-color: var(--primary-900);
 }
 
 .button-rounded {
-    border-radius: var(--spacing-3);
+  border-radius: var(--spacing-3);
 }
 
 .icon-button-small {
-    height: var(--spacing-6);
-    width: var(--spacing-6);
-    padding: 0;
+  height: var(--spacing-6);
+  width: var(--spacing-6);
+  padding: 0;
 }

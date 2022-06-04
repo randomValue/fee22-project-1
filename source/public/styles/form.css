@@ -25,6 +25,7 @@
 .note-input:hover {
     border-color: var(--primary-900);
 }
+
 .note-input:focus {
     border-color: var(--primary-900);
 }

@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: Inter, sans-serif;
     font-size: 12px;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -14,14 +14,14 @@ body {
 button {
     border: none;
     outline: none;
-    font-family: 'Inter', sans-serif;
+    font-family: Inter, sans-serif;
     font-size: 12px;
     cursor: pointer;
     background-color: transparent;
 }
 
 textarea {
-    font-family: 'Inter', sans-serif;
+    font-family: Inter, sans-serif;
     font-size: 12px;
 }
 
@@ -45,32 +45,25 @@ textarea {
     --rounded-md: 8px;
     --rounded-lg: 12px;
     --rounded-xl: 16px;
-
-    --primary: rgba(149, 137, 224, 1);
-    --primary-dark: rgba(117, 104, 197, 1);
-    --primary-light: rgba(203, 196, 248, 1);
-
-    --primary-300: rgba(236, 233, 255, 1);
-    --primary-600: rgba(131, 119, 206, 1);
-    --primary-900: rgba(93, 83, 156, 1);
-
-    --green: rgba(137, 224, 209, 1);
-    --green-dark: rgba(61, 165, 147, 1);
-    --green-100: rgba(183, 248, 236, 1);
-    --green-600: rgba(61, 165, 147, 1);
-    --green-900: rgba(42, 133, 117, 1);
-
-    --red: rgba(255, 55, 163, 1);
-
-    --orange: rgba(254, 144, 81, 1);
-    --orange-600: rgba(231, 124, 64, 1);
-    --orange-900: rgba(180, 87, 34, 1);
-
-    --white: rgba(255, 255, 255, 1);
-    --black: rgba(0, 0, 0, 1);
-    --grey: rgba(239, 237, 255, 1);
-
-    --yellow: rgba(255, 184, 0, 0.5);
+    --primary: rgb(149 137 224 / 100%);
+    --primary-dark: rgb(117 104 197 / 100%);
+    --primary-light: rgb(203 196 248 / 100%);
+    --primary-300: rgb(236 233 255 / 100%);
+    --primary-600: rgb(131 119 206 / 100%);
+    --primary-900: rgb(93 83 156 / 100%);
+    --green: rgb(137 224 209 / 100%);
+    --green-dark: rgb(61 165 147 / 100%);
+    --green-100: rgb(183 248 236 / 100%);
+    --green-600: rgb(61 165 147 / 100%);
+    --green-900: rgb(42 133 117 / 100%);
+    --red: rgb(255 55 163 / 100%);
+    --orange: rgb(254 144 81 / 100%);
+    --orange-600: rgb(231 124 64 / 100%);
+    --orange-900: rgb(180 87 34 / 100%);
+    --white: rgb(255 255 255 / 100%);
+    --black: rgb(0 0 0 / 100%);
+    --grey: rgb(239 237 255 / 100%);
+    --yellow: rgb(255 184 0 / 50%);
     --bg-purple: #E28FFF;
 }
 
@@ -102,8 +95,7 @@ textarea {
     width: 100%;
     height: 100%;
     position: relative;
-
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
     background-color: var(--white);
     overflow: hidden;
     display: grid;

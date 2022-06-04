@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "stylelint": "stylelint \"**/*.css\"",
     "w3c": "html-validator --file ./source/public/index.html  --verbose",
     "eslint": "eslint --fix --ext .js './source/public/**/*.js'",
+    "stylelint": "stylelint -f 'verbose' './source/public/**/*.css' --fix",
     "all": "npm run stylelint && npm run w3c  && npm run eslint  && node -e \"console.log('npm run all completed')\""
   },
   "author": "Fabrice Tobler",
@@ -22,8 +22,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "html-validator-cli": "^7.0.1",
     "prettier": "2.6.2",
-    "stylelint": "^14.7.1",
-    "stylelint-config-standard": "^25.0.0"
+    "stylelint": "^14.8.2",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-prettier": "^2.0.0"
   },
   "dependencies": {
     "express": "^4.18.0"
