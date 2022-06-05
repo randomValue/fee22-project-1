@@ -60,13 +60,15 @@ export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) 
 
 export const List = () => {
   const [data] = useStore()
-  const [, setActiveNote] = useActiveNote()
+  const [activeNote, setActiveNote] = useActiveNote()
 
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(-1)
 
   useEffect(() => {
-    setActiveNote(data[activeIndex])
-  }, [activeIndex])
+    if (!activeNote) {
+      setActiveIndex(-1)
+    }
+  }, [activeNote])
 
   return createElement(
     'ul',
@@ -80,7 +82,10 @@ export const List = () => {
         key: `note-list-item-${index}`,
         isActive: activeIndex === index,
         index,
-        setIsActive: setActiveIndex,
+        setIsActive: () => {
+          setActiveNote(data[index])
+          setActiveIndex(index)
+        },
       })
     ),
     data.length === 0 && 'Leider nichts gefunden'

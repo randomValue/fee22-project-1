@@ -3,7 +3,9 @@ import { mutables } from './mutables.js'
 import { destructedElement } from './destructed-element.js'
 
 export const useEffect = (callback, deps) => {
+  const cachedIdentifier = mutables.identifier
   const node = mutables.Dom[mutables.identifier]
+
   const index = node.cachedEffects
   node.cachedEffects += 1
   if (node.prevDeps === undefined) {
@@ -24,4 +26,5 @@ export const useEffect = (callback, deps) => {
     })
     callback()
   }
+  mutables.identifier = cachedIdentifier
 }

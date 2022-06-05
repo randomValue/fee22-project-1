@@ -91,9 +91,9 @@
 }
 
 .note-text {
-    font-size: 12px;
-    line-height: 14px;
-    font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 400;
 }
 
 .note-text:first-of-type {
@@ -123,6 +123,25 @@
   box-shadow: none;
 }
 
+.done-button[aria-selected='true'] {
+  background-color: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+.done-button[aria-selected='true']:hover,
+.done-button[aria-selected='true']:focus-visible{
+  background-color: var(--green-600);
+  color: var(--white);
+  border-color: var(--green-600);
+}
+
+.done-button[aria-selected='true']:active {
+  background-color: var(--green-900);
+  color: var(--white);
+  border-color: var(--green-900);
+}
+
 .done-button:hover,
 .done-button:focus-visible {
   border: 1px solid var(--green);
@@ -132,9 +151,8 @@
 }
 
 .done-button:active {
-  color: var(--white);
-  background-color: var(--green);
-  border: none;
+  color: var(--green-900);
+  border-color: var(--green-900);
 }
 
 .delete-button {

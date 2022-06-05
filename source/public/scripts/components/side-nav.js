@@ -21,7 +21,8 @@ export const SideNav = () => {
             backUpData.default.push({
               ...backUpData.default[0],
               prio: backUpData.default.length + 1,
-              text: `Hello ${backUpData.default.length + 1}`,
+              title: `Hello ${backUpData.default.length + 1}`,
+              subtitle: `Hello ${backUpData.default.length + 1}`,
             })
             setStore([...backUpData.default])
           },

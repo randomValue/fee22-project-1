@@ -13,7 +13,7 @@ export const mock = [
   },
   {
     id: id + 1,
-    prio: 1,
+    prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
     text: `Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.
@@ -35,7 +35,7 @@ export const mock = [
   },
   {
     id: id + 3,
-    prio: 1,
+    prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
     text: `Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.
@@ -46,7 +46,7 @@ export const mock = [
   },
   {
     id: id + 4,
-    prio: 1,
+    prio: 2,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
     text: `Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.
@@ -57,7 +57,7 @@ export const mock = [
   },
   {
     id: id + 5,
-    prio: 1,
+    prio: 5,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
     text: `Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.
@@ -68,7 +68,7 @@ export const mock = [
   },
   {
     id: id + 6,
-    prio: 1,
+    prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
     text: `Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.

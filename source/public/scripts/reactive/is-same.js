@@ -10,9 +10,6 @@ export const isSame = (oldState, state) => {
       if (!isSame(value, oldState[key])) {
         return false
       }
-      if (value !== oldState[key]) {
-        return false
-      }
       return acc
     }, true)
   }

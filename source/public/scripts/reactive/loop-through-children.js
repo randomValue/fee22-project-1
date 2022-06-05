@@ -1,79 +1,102 @@
-import {mutables} from './mutables.js'
-import {buildVDom} from './core.js'
-import {domNode} from './dom-node.js'
+import { mutables } from './mutables.js'
+import { buildVDom } from './core.js'
+import { domNode } from './dom-node.js'
+import { isSame } from './is-same.js'
 
-export const loopThroughChildren = (composition, currentNode) => {
-    if (composition.children.length < currentNode.children.length) {
-        const amount = currentNode.children.length - composition.children.length
+const deleteChildren = (currentChild, parentNode, i) => {
+  const node = mutables.Dom[currentChild]
 
-        for (let i = 0; i < amount; i+=1) {
-            const childId = currentNode.children[currentNode.children.length - 1 - i]
-            const childNode = mutables.Dom[childId]
-            if(childNode){
-                currentNode.domNode.removeChild(childNode.domNode)
-            }
-            delete mutables.Dom[childId]
-        }
-        currentNode.children = currentNode.children.slice(0, -1)
+  if (parentNode?.domNode) {
+    parentNode.domNode.removeChild(node.domNode)
+  }
+
+  node.children.forEach((child, childId) => {
+    if (typeof child === 'object') {
+      node.domNode.removeChild(child)
+      node.children[childId] = null
+      return
     }
-    composition.children.forEach((child, i) => {
-        const currentChild = currentNode.children[i]
-        if ((typeof child === 'string' || typeof child === 'number') && child) {
-            if (currentChild?.nodeValue && currentChild?.nodeValue !== child) {
-                currentChild.nodeValue = child
-            } else {
-                const node = mutables.Dom[currentChild]
-                if(node && node.domNode){
-                    const textNode = document.createTextNode(child)
-                    currentNode.domNode.insertBefore(textNode, node.domNode)
-                    currentNode.domNode.removeChild(node.domNode)
-                    delete mutables.Dom[currentChild]
-                    currentNode.children[i] = textNode
-                }
-            }
-            return
-        }
-        const node = mutables.Dom[currentChild]
+    deleteChildren(child, node, childId)
+  })
+  if (node) {
+    node.domNode = undefined
+  }
 
-        if (!child && node?.node) {
-            currentNode.domNode.removeChild(node.domNode)
-            delete mutables.Dom[currentChild]
-            currentNode.children[i] = null
-            return
-        }
-        if (!child) {
-            return
-        }
-        if ((currentChild === null && child) || (child && node === undefined && (typeof child !== 'string'))) {
-            if(currentChild?.nodeType){
-                currentNode.domNode.removeChild(currentChild)
-            }
-            currentNode.children[i] = `${currentNode.id  }_${  i}`
-            buildVDom(child, currentNode.children[i], currentNode.domNode)
-            return
-        }
-        if (node) {
-            node.nextProps = child?.props || null
-            if (!node.node && child) {
-                const {element} = domNode(child)
-                currentNode.domNode.insertBefore(element, currentNode.domNode.children[i + 1])
-                node.domNode = element
-            }
-            const domChildren = currentNode.domNode.children
-            if (domChildren[i] !== node.domNode) {
-                currentNode.domNode.insertBefore(node.domNode, domChildren[i])
-            }
-            node.render(child)
-        } else {
-            if(!currentChild){
-                buildVDom(child, currentNode.children[i], currentNode.domNode)
-                return
-            }
-            currentNode.children[i].nodeValue = child
-            if (!currentNode.node) {
-                currentNode.domNode.insertBefore(currentChild, currentNode.children[i + 1])
-            }
-            
-        }
+  delete mutables.Dom[currentChild]
+  if (parentNode && i !== undefined) {
+    parentNode.children[i] = null
+  }
+}
+
+export const loopThroughChildren = (composition, parentNode) => {
+  if (composition.children.length < parentNode.children.length) {
+    parentNode.children = parentNode.children.filter((childId) => {
+      const childNode = mutables.Dom[childId]
+      const foundChild = composition.children.find((child) => isSame(child, childNode?.node))
+      if (!foundChild) {
+        deleteChildren(childId, parentNode)
+      }
+      if (foundChild) {
+        return childId
+      }
     })
+  }
+  composition.children.forEach((child, i) => {
+    const currentChild = parentNode.children[i]
+    if ((typeof child === 'string' || typeof child === 'number') && child) {
+      if (currentChild?.nodeValue && currentChild?.nodeValue !== child) {
+        currentChild.nodeValue = child
+      } else {
+        const node = mutables.Dom[currentChild]
+        if (node && node.domNode) {
+          const textNode = document.createTextNode(child)
+          parentNode.domNode.insertBefore(textNode, node.domNode)
+          parentNode.domNode.removeChild(node.domNode)
+          delete mutables.Dom[currentChild]
+          parentNode.children[i] = textNode
+        }
+      }
+      return
+    }
+    const node = mutables.Dom[currentChild]
+    if (!child && node?.node) {
+      deleteChildren(currentChild, parentNode, i)
+      return
+    }
+    if (!child) {
+      return
+    }
+    if ((!currentChild && child) || (child && !node && typeof child !== 'string')) {
+      if (currentChild?.nodeType) {
+        parentNode.domNode.removeChild(currentChild)
+      }
+      parentNode.children[i] = `${parentNode.id}_${i}`
+      buildVDom(child, parentNode.children[i], parentNode.domNode)
+      return
+    }
+    if (node) {
+      node.nextProps = child?.props || null
+      if (!node.node && child) {
+        const { element } = domNode(child)
+        parentNode.domNode.insertBefore(element, parentNode.domNode.children[i + 1])
+        node.domNode = element
+      }
+      const domChildren = parentNode.domNode.children
+      if (domChildren[i] !== node.domNode) {
+        parentNode.domNode.insertBefore(node.domNode, domChildren[i])
+      }
+      if (!isSame(node.node, child)) {
+        node.render(child)
+      }
+    } else {
+      if (!currentChild) {
+        buildVDom(child, parentNode.children[i], parentNode.domNode)
+        return
+      }
+      parentNode.children[i].nodeValue = child
+      if (!composition) {
+        parentNode.domNode.insertBefore(currentChild, parentNode.children[i + 1])
+      }
+    }
+  })
 }
