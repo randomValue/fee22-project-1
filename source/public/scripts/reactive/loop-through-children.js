@@ -36,9 +36,7 @@ export const loopThroughChildren = (composition, parentNode) => {
       if (!foundChild) {
         deleteChildren(childId, parentNode)
       }
-      if (foundChild) {
-        return childId
-      }
+      return foundChild
     })
   }
   composition.children.forEach((child, i) => {

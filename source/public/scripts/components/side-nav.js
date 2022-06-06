@@ -23,6 +23,7 @@ export const SideNav = () => {
               prio: backUpData.default.length + 1,
               title: `Hello ${backUpData.default.length + 1}`,
               subtitle: `Hello ${backUpData.default.length + 1}`,
+              id: backUpData.default[backUpData.default.length - 1].id + 1,
             })
             setStore([...backUpData.default])
           },

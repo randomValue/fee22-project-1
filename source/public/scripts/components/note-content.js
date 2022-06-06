@@ -5,7 +5,6 @@ import { useActiveNote } from '../store.js'
 
 export const NoteContent = () => {
   const [activeNote] = useActiveNote()
-
   return createElement(
     'section',
     { class: 'note' },

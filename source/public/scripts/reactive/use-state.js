@@ -1,7 +1,7 @@
 import { mutables } from './mutables.js'
 import { destructedElement } from './destructed-element.js'
-import { isSame } from './is-same.js'
 
+export const needsUpdate = []
 export const useState = (initialState) => {
   const cachedIndex = mutables.identifier
   const cachedNode = mutables.Dom[cachedIndex]
@@ -18,9 +18,9 @@ export const useState = (initialState) => {
   const setState = (state) => {
     const node = mutables.Dom[cachedIndex]
     node.nextState[index] = typeof state === 'function' ? state(node.state[index]) : state
-    if (!mutables.isInitial) {
-      isSame(node.state, node.nextState)
-      node.render(node.function, index)
+    const foundNeedUpdate = needsUpdate.find((nodeId) => nodeId === cachedIndex)
+    if (!foundNeedUpdate) {
+      needsUpdate.push(cachedIndex)
     }
   }
   return [returnState, setState]

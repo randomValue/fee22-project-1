@@ -13,12 +13,13 @@ export const create = (state) => {
       typeof value === 'function' ? destructedElement(value(store)) : destructedElement(value)
     if (!isSame(store, nextState)) {
       store = nextState
-      updateStates.forEach(({ id, setStore, count }, i) => {
+      const cloneUpdateStates = [...updateStates]
+      cloneUpdateStates.forEach(({ id, setStore }) => {
         if (!mutables.Dom[id]) {
-          updateStates.splice(i, 1)
+          const foundIndex = updateStates.findIndex((entry) => entry === id)
+          updateStates.splice(foundIndex, 1)
           return
         }
-        mutables.identifier = id
         setStore((v) => v + 1)
       })
     }
@@ -27,7 +28,12 @@ export const create = (state) => {
   const setup = () => {
     const [, setStore] = useState(0)
     useEffect(() => {
-      updateStates.push({ id: mutables.identifier, setStore })
+      const mayExists = updateStates.find((entry) => entry.id === mutables.identifier)
+      if (!mayExists) {
+        updateStates.push({ id: mutables.identifier, setStore })
+      } else {
+        mayExists.setStore = setStore
+      }
     }, [])
     return [store, update]
   }

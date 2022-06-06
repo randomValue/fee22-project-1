@@ -18,9 +18,11 @@ export const vNode = {
   function: undefined,
   prevDeps: undefined,
   cachedEffects: 0,
+  doneRendering: false,
   render(Comp, cachedIndex) {
+    this.doneRendering = false
     mutables.identifier = this.id
-    const sameState = isSame(this.state[cachedIndex], this.nextState[cachedIndex])
+    const sameState = isSame(this.state, this.nextState)
     const sameProps = isSame(this.props, this.nextProps)
     let sameNode = true
     if (typeof Comp !== 'function') {
@@ -50,10 +52,8 @@ export const vNode = {
       } else {
         composition = Comp
       }
-
+      this.doneRendering = true
       composition.children = composition.children.filter((child) => !!child)
-
-      this.cachedIndex = cachedIndex
 
       if (this.node.type !== composition.type) {
         const { parentNode } = this.domNode
@@ -72,5 +72,6 @@ export const vNode = {
       loopThroughChildren(composition, this)
       this.node = composition
     }
+    this.cachedIndex = 0
   },
 }

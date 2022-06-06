@@ -28,9 +28,11 @@ export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
           if (backUpData.default.length === 0) {
             backUpData.default.push(...state)
           }
-          const filtered = backUpData.default.filter((item) =>
-            item.text.toLowerCase().match(e.target.value.toLowerCase())
-          )
+          const filtered = backUpData.default.filter((item) => {
+            const inTitle = item.title.toLowerCase().match(e.target.value.toLowerCase())
+            const inSubtitle = item.subtitle.toLowerCase().match(e.target.value.toLowerCase())
+            return inTitle || inSubtitle
+          })
           return [...filtered]
         })
       },
