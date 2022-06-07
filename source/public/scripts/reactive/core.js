@@ -30,6 +30,8 @@ export const buildVDom = (virtualNode, id, parentNode, parentId) => {
 
   const { node: createdNode, element } = domNode(virtualNode)
 
+  node.doneRendering = true
+
   createRef(createdNode, element)
 
   node.node = createdNode

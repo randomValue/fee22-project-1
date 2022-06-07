@@ -30,6 +30,9 @@ const loopThroughIds = (a, b) => {
 }
 
 export const loopThroughStates = () => {
+  if (needsUpdate.length === 0) {
+    return
+  }
   const cloneNeedsUpdate = [...needsUpdate].sort((a, b) => {
     const splitA = a.split(/[_]/g)
     const splitB = b.split(/[_]/g)
@@ -44,10 +47,9 @@ export const loopThroughStates = () => {
   })
   cloneNeedsUpdate.forEach((id) => {
     const updateNode = mutables.Dom[id]
-    const foundIndex = needsUpdate.findIndex((entry) => entry === id)
-
     if (updateNode) {
       updateNode.render(updateNode.function, id)
     }
   })
+  needsUpdate.length = 0
 }

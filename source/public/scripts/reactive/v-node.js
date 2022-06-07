@@ -4,6 +4,7 @@ import { loopThroughChildren } from './loop-through-children.js'
 import { createAttributes } from './create-attributes.js'
 import { createEvents } from './create-events.js'
 import { domNode } from './dom-node.js'
+import { loopThroughStates } from './loop-through-states.js'
 
 export const vNode = {
   state: undefined,
@@ -19,7 +20,7 @@ export const vNode = {
   prevDeps: undefined,
   cachedEffects: 0,
   doneRendering: false,
-  render(Comp, cachedIndex) {
+  render(Comp) {
     this.doneRendering = false
     mutables.identifier = this.id
     const sameState = isSame(this.state, this.nextState)
@@ -71,7 +72,9 @@ export const vNode = {
 
       loopThroughChildren(composition, this)
       this.node = composition
+      loopThroughStates()
     }
+    this.doneRendering = true
     this.cachedIndex = 0
   },
 }

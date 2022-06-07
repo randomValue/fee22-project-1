@@ -63,12 +63,11 @@ export const List = () => {
   const [activeNote, setActiveNote] = useActiveNote()
 
   const [activeIndex, setActiveIndex] = useState(-1)
-  /*
   useEffect(() => {
     if (!activeNote) {
       setActiveIndex(-1)
     }
-  }, [activeNote]) */
+  }, [activeNote])
 
   return createElement(
     'ul',
