@@ -52,10 +52,12 @@ export const SearchContainer = () => {
         createElement(FilterButton, {
           label: 'Datum',
           disabled: toggleSearch ? true : undefined,
+          filterBy: 'dueDate',
         }),
         createElement(FilterButton, {
           label: 'Relevanz',
           disabled: toggleSearch ? true : undefined,
+          filterBy: 'prio',
         }),
         createElement(FilterButton, {
           label: 'Erstellung',

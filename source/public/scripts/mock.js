@@ -1,7 +1,7 @@
-let id = 12346
+const id = 12346
 export const mock = [
   {
-    id: id,
+    id,
     prio: 1,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',

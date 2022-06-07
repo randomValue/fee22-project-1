@@ -34,8 +34,8 @@ export const loopThroughStates = () => {
     return
   }
   const cloneNeedsUpdate = [...needsUpdate].sort((a, b) => {
-    const splitA = a.split(/[_]/g)
-    const splitB = b.split(/[_]/g)
+    const splitA = a.toString().split(/[_]/g)
+    const splitB = b.toString().split(/[_]/g)
     const largerId = loopThroughIds(splitB, splitA)
     if (largerId === splitB) {
       return 1
