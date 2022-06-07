@@ -105,15 +105,19 @@
   color: var(--primary);
 }
 
-.edit-button:hover,
-.edit-button:focus-visible {
+.edit-button:not([disabled]):hover,
+.edit-button:not([disabled]):focus-visible {
   background-color: var(--green-100);
   box-shadow: none;
 }
 
-.edit-button:active {
+.edit-button[disabled] {
+  cursor: auto;
+}
+
+.edit-button:not([disabled]):active,
+.edit-button-active {
   background-color: var(--green);
-  color: var(--white);
   box-shadow: none;
 }
 
@@ -130,7 +134,7 @@
 }
 
 .done-button[aria-selected='true']:hover,
-.done-button[aria-selected='true']:focus-visible{
+.done-button[aria-selected='true']:focus-visible {
   background-color: var(--green-600);
   color: var(--white);
   border-color: var(--green-600);

@@ -1,6 +1,7 @@
 import { createElement } from '../reactive/create-element.js'
 import { backUpData, useStore } from '../store.js'
 import { useState } from '../reactive/use-state.js'
+import { useEffect } from '../reactive/use-effect.js'
 
 const sortData = (filterBy) => (state) => {
   if (backUpData.default.length === 0) {
@@ -41,6 +42,12 @@ export const FilterButton = ({ label, disabled, filterBy }) => {
 const inputRef = { current: undefined }
 export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
   const [, setData] = useStore()
+
+  useEffect(() => {
+    if (toggleSearch) {
+      inputRef.current?.focus()
+    }
+  }, [toggleSearch])
 
   return createElement(
     'div',

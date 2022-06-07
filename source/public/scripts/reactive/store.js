@@ -7,12 +7,12 @@ import { mutables } from './mutables.js'
 export const create = (state) => {
   const updateStates = []
   let store = destructedElement(state)
+  let nextState = destructedElement(state)
 
   const update = (value) => {
-    const nextState =
+    nextState =
       typeof value === 'function' ? destructedElement(value(store)) : destructedElement(value)
     if (!isSame(store, nextState)) {
-      store = nextState
       const cloneUpdateStates = [...updateStates]
       cloneUpdateStates.forEach(({ id, setStore }) => {
         if (!mutables.Dom[id]) {
@@ -20,13 +20,14 @@ export const create = (state) => {
           updateStates.splice(foundIndex, 1)
           return
         }
-        setStore((v) => v + 1)
+        setStore(nextState)
       })
     }
   }
 
   const setup = () => {
-    const [, setStore] = useState(0)
+    const [value, setStore] = useState(store)
+    store = nextState
     useEffect(() => {
       const mayExists = updateStates.find((entry) => entry.id === mutables.identifier)
       if (!mayExists) {
@@ -35,7 +36,7 @@ export const create = (state) => {
         mayExists.setStore = setStore
       }
     }, [])
-    return [store, update]
+    return [value, update]
   }
 
   return setup

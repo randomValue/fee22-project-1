@@ -3,17 +3,28 @@ import { EditIcon } from './icons/edit-icon.js'
 import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
 import { backUpData, useActiveNote, useStore } from '../store.js'
+import { useRouter } from '../reactive/use-router.js'
 
 export const ContentHeaderButtons = () => {
   const [activeNote, setActiveNote] = useActiveNote()
   const [data, setData] = useStore()
+  const { queries, push } = useRouter()
 
   return createElement(
     'div',
     { class: 'header-actions' },
     createElement(
       'button',
-      { class: 'button-base icon-button-small button-rounded edit-button' },
+      {
+        class: `button-base icon-button-small button-rounded edit-button ${
+          queries?.[1] === 'edit' ? 'edit-button-active' : ''
+        }`,
+        disabled: queries?.[1] === 'edit' || undefined,
+        onClick: () => {
+          const noteId = queries[0]
+          push(`/${noteId}/edit`)
+        },
+      },
       createElement(EditIcon)
     ),
     createElement(

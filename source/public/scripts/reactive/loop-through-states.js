@@ -8,24 +8,19 @@ const loopThroughIds = (a, b) => {
   let isLarger
   a.find((entry, i) => {
     if (!b[i]) {
-      isLarger = false
+      isLarger = a
       return true
     }
     if (entry > b[i]) {
-      isLarger = true
+      isLarger = a
       return true
     }
     if (entry < b[i]) {
+      isLarger = b
       return true
     }
     return false
   })
-  if (isLarger) {
-    return a
-  }
-  if (isLarger === false) {
-    return b
-  }
   return isLarger
 }
 
@@ -36,12 +31,13 @@ export const loopThroughStates = () => {
   const cloneNeedsUpdate = [...needsUpdate].sort((a, b) => {
     const splitA = a.toString().split(/[_]/g)
     const splitB = b.toString().split(/[_]/g)
-    const largerId = loopThroughIds(splitB, splitA)
-    if (largerId === splitB) {
-      return 1
-    }
-    if (largerId === splitA) {
+    const isLarger = loopThroughIds(splitB, splitA)
+
+    if (isLarger === splitB) {
       return -1
+    }
+    if (isLarger === splitA) {
+      return 1
     }
     return 0
   })

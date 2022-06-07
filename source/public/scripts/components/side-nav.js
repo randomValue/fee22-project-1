@@ -1,11 +1,11 @@
 import { createElement } from '../reactive/create-element.js'
 import { SearchContainer } from './search-container.js'
 import { NoteList } from './note-list.js'
-import { backUpData, useStore } from '../store.js'
 import { AddIcon } from './icons/add-icon.js'
+import { useRouter } from '../reactive/use-router.js'
 
 export const SideNav = () => {
-  const [, setStore] = useStore()
+  const { push } = useRouter()
   return createElement(
     'div',
     { class: 'side-nav' },
@@ -18,14 +18,7 @@ export const SideNav = () => {
         {
           class: 'button-base add-button',
           onClick: () => {
-            backUpData.default.push({
-              ...backUpData.default[0],
-              prio: backUpData.default.length + 1,
-              title: `Hello ${backUpData.default.length + 1}`,
-              subtitle: `Hello ${backUpData.default.length + 1}`,
-              id: backUpData.default[backUpData.default.length - 1].id + 1,
-            })
-            setStore([...backUpData.default])
+            push('/new/create-new')
           },
         },
         createElement(AddIcon)

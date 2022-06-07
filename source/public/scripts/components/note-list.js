@@ -5,9 +5,12 @@ import { useActiveNote, useStore } from '../store.js'
 import { useEffect } from '../reactive/use-effect.js'
 import { ChevronRightIcon } from './icons/chevron-right-icon.js'
 import { formateDate } from '../lib/formate-date.js'
+import { isSame } from '../reactive/is-same.js'
+import { useRouter } from '../reactive/use-router.js'
 
-export const ListItem = ({ subtitle, title, date, prio, isActive, setIsActive, index }) =>
-  createElement(
+export const ListItem = ({ id, subtitle, title, date, prio, isActive }) => {
+  const { push } = useRouter()
+  return createElement(
     'li',
     { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
     createElement(
@@ -16,7 +19,7 @@ export const ListItem = ({ subtitle, title, date, prio, isActive, setIsActive, i
         class: `nav-button ${isActive ? 'nav-button-active' : ''}`,
         disabled: isActive ? true : undefined,
         onClick: () => {
-          setIsActive(index)
+          push(`/${id}`)
         },
       },
       createElement(
@@ -35,8 +38,10 @@ export const ListItem = ({ subtitle, title, date, prio, isActive, setIsActive, i
       createElement(ChevronRightIcon)
     )
   )
-export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) =>
-  createElement(
+}
+export const ListItemDone = ({ id, subtitle, title, isActive }) => {
+  const { push } = useRouter()
+  return createElement(
     'li',
     { class: `nav-item ${isActive ? 'nav-item-active' : ''}` },
     createElement(
@@ -45,7 +50,7 @@ export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) 
         class: `nav-button nav-button-done ${isActive ? 'nav-button-active' : ''}`,
         disabled: isActive ? true : undefined,
         onClick: () => {
-          setIsActive(index)
+          push(`/${id}`)
         },
       },
       createElement(
@@ -57,6 +62,7 @@ export const ListItemDone = ({ subtitle, title, isActive, setIsActive, index }) 
       createElement(ChevronRightIcon)
     )
   )
+}
 
 export const List = () => {
   const [data] = useStore()
@@ -66,8 +72,11 @@ export const List = () => {
   useEffect(() => {
     if (!activeNote) {
       setActiveIndex(-1)
+      return
     }
-  }, [activeNote])
+    const findIndex = data.findIndex((entry) => isSame(entry, activeNote))
+    setActiveIndex(findIndex)
+  }, [activeNote, data])
 
   return createElement(
     'ul',
@@ -81,6 +90,7 @@ export const List = () => {
         key: `note-list-item-${index}`,
         isActive: activeIndex === index,
         index,
+        id: item.id,
         setIsActive: () => {
           setActiveNote(data[index])
           setActiveIndex(index)

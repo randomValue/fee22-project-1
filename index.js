@@ -13,7 +13,7 @@ app.get('/api/mock', (req, res) => {
   res.json(mock)
 })
 
-app.get('/', (req, res) => {
+app.get('/:note?/:edit?', (req, res) => {
   res.sendFile(path.join(dirname, './source/public/index.html'))
 })
 
