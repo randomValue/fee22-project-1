@@ -2,15 +2,16 @@ import { mutables } from './mutables.js'
 import { buildVDom } from './core.js'
 import { domNode } from './dom-node.js'
 import { isSame } from './is-same.js'
+import { destructedElement } from './destructed-element.js'
 
 const deleteChildren = (currentChild, parentNode, i) => {
   const node = mutables.Dom[currentChild]
 
-  if (parentNode?.domNode) {
+  if (parentNode?.domNode && node) {
     parentNode.domNode.removeChild(node.domNode)
   }
 
-  node.children.forEach((child, childId) => {
+  node?.children?.forEach((child, childId) => {
     if (typeof child === 'object') {
       node.domNode.removeChild(child)
       node.children[childId] = null
@@ -30,7 +31,7 @@ const deleteChildren = (currentChild, parentNode, i) => {
 
 export const loopThroughChildren = (composition, parentNode) => {
   if (composition.children.length < parentNode.children.length) {
-    parentNode.children = parentNode.children.filter((childId) => {
+    parentNode.children = parentNode.children.filter((childId, i) => {
       const childNode = mutables.Dom[childId]
       const foundChild = composition.children.find((child) => isSame(child, childNode?.node))
       if (!foundChild) {
@@ -65,7 +66,7 @@ export const loopThroughChildren = (composition, parentNode) => {
       return
     }
     if ((!currentChild && child) || (child && !node && typeof child !== 'string')) {
-      if (currentChild?.nodeType) {
+      if (currentChild?.nodeType && parentNode.domNode === parentNode.oldDomNode) {
         parentNode.domNode.removeChild(currentChild)
       }
       parentNode.children[i] = `${parentNode.id}_${i}`

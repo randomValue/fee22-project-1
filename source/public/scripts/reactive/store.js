@@ -20,7 +20,7 @@ export const create = (state) => {
           updateStates.splice(foundIndex, 1)
           return
         }
-        setStore(nextState)
+        setStore(destructedElement(nextState))
       })
     }
   }

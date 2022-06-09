@@ -31,11 +31,11 @@ export const ContentHeaderButtons = () => {
       'button',
       {
         class: 'button-base button-outline icon-button-small button-rounded done-button',
-        'aria-selected': activeNote.done ? 'true' : undefined,
+        'aria-selected': activeNote?.done ? 'true' : undefined,
         onClick: () => {
-          const toggleDone = !activeNote.done
+          const toggleDone = !activeNote?.done
           const newData = [...data]
-          const foundNote = newData.find((note) => note.id === activeNote.id)
+          const foundNote = newData.find((note) => note.id === activeNote?.id)
           if (foundNote) {
             foundNote.done = toggleDone
           }
@@ -51,7 +51,7 @@ export const ContentHeaderButtons = () => {
         class: 'button-base icon-button-small button-rounded delete-button',
         onClick: () => {
           const newData = [...data]
-          const foundIndex = newData.findIndex((note) => note.id === activeNote.id)
+          const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)
           if (foundIndex > -1) {
             newData.splice(foundIndex, 1)
             backUpData.default = [...newData]

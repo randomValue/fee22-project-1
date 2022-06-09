@@ -9,16 +9,20 @@ import { loopThroughStates } from './loop-through-states.js'
 export const vNode = {
   state: undefined,
   nextState: undefined,
+  memos: undefined,
   cachedIndex: 0,
   id: undefined,
   props: undefined,
   nextProps: undefined,
   node: undefined,
   domNode: undefined,
+  oldDomeNode: undefined,
   children: undefined,
   function: undefined,
   prevDeps: undefined,
+  prevMemoDeps: undefined,
   cachedEffects: 0,
+  cachedMemos: 0,
   doneRendering: false,
   render(Comp) {
     this.doneRendering = false
@@ -30,6 +34,9 @@ export const vNode = {
       Comp.children = Comp.children.filter((child) => !!child)
       sameNode = isSame(this.node, Comp)
     }
+    this.cachedIndex = 0
+    this.cachedEffects = 0
+    this.cachedMemos = 0
     if (Comp && (!sameState || !sameProps || !sameNode)) {
       this.nextState.forEach((entry, index) => {
         if (Array.isArray(entry)) {
@@ -42,8 +49,6 @@ export const vNode = {
         }
         this.state[index] = entry
       })
-      this.cachedIndex = 0
-      this.cachedEffects = 0
       this.props = this.nextProps
       let composition
       if (typeof Comp === 'function') {
@@ -61,6 +66,7 @@ export const vNode = {
         const { element } = domNode(composition)
         parentNode.insertBefore(element, this.domNode)
         parentNode.removeChild(this.domNode)
+        this.oldDomNode = this.domNode
         this.domNode = element
         this.children.forEach((child) => {
           delete mutables.Dom[child]

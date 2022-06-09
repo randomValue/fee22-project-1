@@ -36,6 +36,7 @@ export const buildVDom = (virtualNode, id, parentNode, parentId) => {
 
   node.node = createdNode
   node.domNode = element
+  node.oldDomNode = element
 
   parentNode.appendChild(element)
 
