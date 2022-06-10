@@ -16,7 +16,7 @@ export const vNode = {
   nextProps: undefined,
   node: undefined,
   domNode: undefined,
-  oldDomeNode: undefined,
+  oldDomNode: undefined,
   children: undefined,
   function: undefined,
   prevDeps: undefined,
@@ -61,7 +61,10 @@ export const vNode = {
       this.doneRendering = true
       composition.children = composition.children.filter((child) => !!child)
 
-      if (this.node.type !== composition.type) {
+      if (
+        this.node.type !== composition.type ||
+        this.node.children.length !== composition.children.length
+      ) {
         const { parentNode } = this.domNode
         const { element } = domNode(composition)
         parentNode.insertBefore(element, this.domNode)

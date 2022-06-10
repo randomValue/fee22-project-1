@@ -4,9 +4,13 @@ import { useMemo } from '../reactive/use-memo.js'
 
 export const FormInput = ({ ...props }) => {
   const id = useMemo(() => mutables.formId, [])
-  return createElement(props.type === 'textarea' ? 'textarea' : 'input', {
-    ...props,
-    id: `input_${id}`,
-    class: `note-input ${props.class || ''}`,
-  })
+  return createElement(
+    props.type === 'textarea' ? 'textarea' : 'input',
+    {
+      ...props,
+      id: `input_${id}`,
+      class: `note-input ${props.class || ''}`,
+    },
+    props.children
+  )
 }

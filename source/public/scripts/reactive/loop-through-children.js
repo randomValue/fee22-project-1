@@ -2,7 +2,6 @@ import { mutables } from './mutables.js'
 import { buildVDom } from './core.js'
 import { domNode } from './dom-node.js'
 import { isSame } from './is-same.js'
-import { destructedElement } from './destructed-element.js'
 
 const deleteChildren = (currentChild, parentNode, i) => {
   const node = mutables.Dom[currentChild]
@@ -31,7 +30,7 @@ const deleteChildren = (currentChild, parentNode, i) => {
 
 export const loopThroughChildren = (composition, parentNode) => {
   if (composition.children.length < parentNode.children.length) {
-    parentNode.children = parentNode.children.filter((childId, i) => {
+    parentNode.children = parentNode.children.filter((childId) => {
       const childNode = mutables.Dom[childId]
       const foundChild = composition.children.find((child) => isSame(child, childNode?.node))
       if (!foundChild) {
@@ -47,12 +46,15 @@ export const loopThroughChildren = (composition, parentNode) => {
         currentChild.nodeValue = child
       } else {
         const node = mutables.Dom[currentChild]
+        const textNode = document.createTextNode(child)
         if (node && node.domNode) {
-          const textNode = document.createTextNode(child)
           parentNode.domNode.insertBefore(textNode, node.domNode)
           parentNode.domNode.removeChild(node.domNode)
           delete mutables.Dom[currentChild]
           parentNode.children[i] = textNode
+        }
+        if (!parentNode.domNode.innerHTML) {
+          parentNode.domNode.append(textNode)
         }
       }
       return
@@ -66,13 +68,18 @@ export const loopThroughChildren = (composition, parentNode) => {
       return
     }
     if ((!currentChild && child) || (child && !node && typeof child !== 'string')) {
-      if (currentChild?.nodeType && parentNode.domNode === parentNode.oldDomNode) {
-        parentNode.domNode.removeChild(currentChild)
+      if (currentChild?.nodeType) {
+        if (parentNode.domNode === parentNode.oldDomNode) {
+          parentNode.domNode.removeChild(currentChild)
+        } else {
+          parentNode.oldDomNode.removeChild(currentChild)
+        }
       }
       parentNode.children[i] = `${parentNode.id}_${i}`
       buildVDom(child, parentNode.children[i], parentNode.domNode)
       return
     }
+
     if (node) {
       node.nextProps = child?.props || null
       if (!node.node && child) {

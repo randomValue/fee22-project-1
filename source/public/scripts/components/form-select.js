@@ -5,8 +5,8 @@ import { FormLabel } from './form-label.js'
 import { PrioIcon } from './icons/prio-icon.js'
 import { useMemo } from '../reactive/use-memo.js'
 
-export const FormSelect = () => {
-  const [prio, setPrio] = useState(-1)
+export const FormSelect = ({ prio }) => {
+  const [activePrio, setPrio] = useState(prio || -1)
   const handleClick = useMemo(
     () => (e) => {
       if (e.target.checked) {
@@ -20,7 +20,7 @@ export const FormSelect = () => {
     null,
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio >= 4 }),
+      label: createElement(PrioIcon, { isSelected: activePrio >= 4 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -31,7 +31,7 @@ export const FormSelect = () => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio >= 3 }),
+      label: createElement(PrioIcon, { isSelected: activePrio >= 3 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -42,7 +42,7 @@ export const FormSelect = () => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio >= 2 }),
+      label: createElement(PrioIcon, { isSelected: activePrio >= 2 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -53,7 +53,7 @@ export const FormSelect = () => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio >= 1 }),
+      label: createElement(PrioIcon, { isSelected: activePrio >= 1 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -64,7 +64,7 @@ export const FormSelect = () => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio >= 0 }),
+      label: createElement(PrioIcon, { isSelected: activePrio >= 0 }),
     }),
     createElement(FormInput, {
       type: 'radio',

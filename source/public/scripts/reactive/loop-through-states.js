@@ -44,7 +44,10 @@ export const loopThroughStates = () => {
   cloneNeedsUpdate.forEach((id) => {
     const updateNode = mutables.Dom[id]
     if (updateNode) {
-      updateNode.render(updateNode.function, id)
+      updateNode.render(
+        updateNode.function || { ...updateNode.node, props: updateNode.nextProps },
+        id
+      )
     }
   })
   needsUpdate.length = 0

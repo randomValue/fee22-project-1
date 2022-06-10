@@ -6,7 +6,7 @@ export const Content = () => {
   return createElement(
     'article',
     { class: 'note-content' },
-    createElement('h1', { class: 'note-title' }, activeNote.title),
-    createElement('p', { class: 'note-text' }, activeNote.text)
+    createElement('h1', { class: 'note-title' }, activeNote?.title),
+    createElement('p', { class: 'note-text' }, activeNote?.text)
   )
 }

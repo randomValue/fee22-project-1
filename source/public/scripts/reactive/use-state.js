@@ -23,7 +23,7 @@ export const useState = (initialState) => {
       needsUpdate.push(cachedIndex)
     }
     if (node && node.doneRendering && !mutables.isEventActive) {
-      node.render(node.function, node.id)
+      node.render(node.function || { ...node.node, props: node.nextProps }, node.id)
     }
   }
   return [returnState, setState]
