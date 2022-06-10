@@ -4,17 +4,22 @@ import { useState } from '../reactive/use-state.js'
 import { FormLabel } from './form-label.js'
 import { PrioIcon } from './icons/prio-icon.js'
 import { useMemo } from '../reactive/use-memo.js'
+import { useEffect } from '../reactive/use-effect.js'
 
 export const FormSelect = ({ prio }) => {
-  const [activePrio, setPrio] = useState(prio || -1)
+  const [activePrio, setActivePrio] = useState(prio || -1)
   const handleClick = useMemo(
     () => (e) => {
       if (e.target.checked) {
-        setPrio(parseInt(e.target.value, 10))
+        setActivePrio(parseInt(e.target.value, 10))
       }
     },
     []
   )
+  useEffect(() => {
+    setActivePrio(prio)
+  }, [prio])
+
   return createElement(
     'div',
     null,

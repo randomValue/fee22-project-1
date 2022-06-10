@@ -28,6 +28,6 @@ export const ContentHeader = ({ activeNote, isEditMode, isNewMode }) => {
         createElement('div', { class: 'header-prio-label' }, 'Relevanz:'),
         createElement(PrioElement, { prio: activeNote.prio })
       ),
-    !isNewMode && createElement(ContentHeaderButtons)
+    !isNewMode && activeNote && createElement(ContentHeaderButtons)
   )
 }

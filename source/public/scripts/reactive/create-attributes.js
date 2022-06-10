@@ -12,7 +12,7 @@ export const createAttributes = (props, node) => {
       node.setAttribute(key, style)
     } else if (value === undefined) {
       node.removeAttribute(key)
-    } else {
+    } else if (key !== 'children') {
       node?.setAttribute(key, value)
     }
   })

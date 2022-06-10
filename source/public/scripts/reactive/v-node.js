@@ -30,9 +30,13 @@ export const vNode = {
     const sameState = isSame(this.state, this.nextState)
     const sameProps = isSame(this.props, this.nextProps)
     let sameNode = true
-    if (typeof Comp !== 'function') {
+    if (typeof Comp !== 'function' && !!Comp) {
       Comp.children = Comp.children.filter((child) => !!child)
       sameNode = isSame(this.node, Comp)
+    }
+    if (!Comp) {
+      Comp = this.node
+      Comp.props = this.nextProps
     }
     this.cachedIndex = 0
     this.cachedEffects = 0
@@ -49,6 +53,7 @@ export const vNode = {
         }
         this.state[index] = entry
       })
+
       this.props = this.nextProps
       let composition
       if (typeof Comp === 'function') {
@@ -79,8 +84,8 @@ export const vNode = {
       createAttributes(composition.props, this.domNode)
       createEvents(composition.synth, this.domNode, this.node)
 
-      loopThroughChildren(composition, this)
       this.node = composition
+      loopThroughChildren(composition, this)
       loopThroughStates()
     }
     this.doneRendering = true

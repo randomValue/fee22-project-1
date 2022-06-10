@@ -20,3 +20,11 @@ export const formateDate = (date) => {
       return moment(date).format('DD.MM.YYYY')
   }
 }
+
+export const parseDate = (date) => {
+  return moment(date).format('YYYY-MM-DD')
+}
+
+export const toDate = (date) => {
+  return moment(date).toDate()
+}

@@ -39,6 +39,7 @@ export const loopThroughChildren = (composition, parentNode) => {
       return foundChild
     })
   }
+
   composition.children.forEach((child, i) => {
     const currentChild = parentNode.children[i]
     if ((typeof child === 'string' || typeof child === 'number') && child) {
