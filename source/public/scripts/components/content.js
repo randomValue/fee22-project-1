@@ -1,8 +1,6 @@
 import { createElement } from '../reactive/create-element.js'
-import { useActiveNote } from '../store.js'
 
-export const Content = () => {
-  const [activeNote] = useActiveNote()
+export const Content = ({ activeNote }) => {
   return createElement(
     'article',
     { class: 'note-content' },

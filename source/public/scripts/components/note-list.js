@@ -74,7 +74,7 @@ export const List = () => {
       setActiveIndex(-1)
       return
     }
-    const findIndex = data.findIndex((entry) => isSame(entry, activeNote))
+    const findIndex = data.findIndex((entry) => entry.id === activeNote.id)
     setActiveIndex(findIndex)
   }, [activeNote, data])
 

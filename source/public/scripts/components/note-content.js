@@ -6,8 +6,8 @@ import { useRouter } from '../reactive/use-router.js'
 import { Form } from './form.js'
 
 export const NoteContent = () => {
-  const [activeNote] = useActiveNote()
-  const { queries } = useRouter()
+  const [activeNote, setActiveNote] = useActiveNote()
+  const { queries, push } = useRouter()
 
   const [, edit] = queries
 
@@ -18,8 +18,12 @@ export const NoteContent = () => {
       activeNote,
       isEditMode: !!edit?.match(/edit/),
       isNewMode: !!edit?.match('create-new'),
+      routerPush: push,
+      queries,
+      setActiveNote,
     }),
-    activeNote && edit === undefined && createElement(Content),
-    !!edit?.match(/(edit|create-new)/) && createElement(Form)
+    activeNote && edit === undefined && createElement(Content, { activeNote }),
+    !!edit?.match(/(edit|create-new)/) &&
+      createElement(Form, { activeNote, setActiveNote, routerPush: push })
   )
 }

@@ -2,14 +2,9 @@ import { createElement } from '../reactive/create-element.js'
 import { FormInput } from './form-input.js'
 import { FormLabel } from './form-label.js'
 import { FormSelect } from './form-select.js'
-import { useActiveNote } from '../store.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
-import { useRouter } from '../reactive/use-router.js'
 
-export const Form = () => {
-  const [activeNote, setActiveNote] = useActiveNote()
-  const { push, queries } = useRouter()
-
+export const Form = ({ activeNote, setActiveNote, routerPush }) => {
   return createElement(
     'form',
     { class: 'note-form' },
@@ -30,7 +25,7 @@ export const Form = () => {
       },
     }),
     createElement(FormLabel, { label: 'Relevanz:' }),
-    createElement(FormSelect, { prio: activeNote ? activeNote.prio - 1 : -1 }),
+    createElement(FormSelect, { activeNote, setActiveNote }),
     createElement(FormLabel, { class: 'note-label', label: 'Notiz' }),
     createElement(FormInput, {
       class: 'note-textarea',
@@ -49,7 +44,7 @@ export const Form = () => {
           type: 'button',
           class: 'button-base button-outline note-button-cancel',
           onClick: () => {
-            push(`/${queries[0]}`)
+            routerPush(`/${activeNote?.id || ''}`)
           },
         },
         'abbrechen'

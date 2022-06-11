@@ -2,13 +2,10 @@ import { createElement } from '../reactive/create-element.js'
 import { EditIcon } from './icons/edit-icon.js'
 import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
-import { backUpData, useActiveNote, useStore } from '../store.js'
-import { useRouter } from '../reactive/use-router.js'
+import { backUpData, useStore } from '../store.js'
 
-export const ContentHeaderButtons = () => {
-  const [activeNote, setActiveNote] = useActiveNote()
+export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiveNote }) => {
   const [data, setData] = useStore()
-  const { queries, push } = useRouter()
 
   return createElement(
     'div',
@@ -21,8 +18,9 @@ export const ContentHeaderButtons = () => {
         }`,
         disabled: queries?.[1] === 'edit' || undefined,
         onClick: () => {
-          const noteId = queries[0]
-          push(`/${noteId}/edit`)
+          if (activeNote) {
+            routerPush(`/${activeNote.id}/edit`)
+          }
         },
       },
       createElement(EditIcon)

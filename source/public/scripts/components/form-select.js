@@ -1,31 +1,25 @@
 import { createElement } from '../reactive/create-element.js'
 import { FormInput } from './form-input.js'
-import { useState } from '../reactive/use-state.js'
 import { FormLabel } from './form-label.js'
 import { PrioIcon } from './icons/prio-icon.js'
 import { useMemo } from '../reactive/use-memo.js'
-import { useEffect } from '../reactive/use-effect.js'
 
-export const FormSelect = ({ prio }) => {
-  const [activePrio, setActivePrio] = useState(prio || -1)
+export const FormSelect = ({ activeNote, setActiveNote }) => {
   const handleClick = useMemo(
     () => (e) => {
       if (e.target.checked) {
-        setActivePrio(parseInt(e.target.value, 10))
+        setActiveNote((state) => ({ ...state, prio: parseInt(e.target.value, 10) }))
       }
     },
     []
   )
-  useEffect(() => {
-    setActivePrio(prio)
-  }, [prio])
 
   return createElement(
     'div',
     null,
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: activePrio >= 4 }),
+      label: createElement(PrioIcon, { isSelected: activeNote?.prio > 4 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -36,7 +30,7 @@ export const FormSelect = ({ prio }) => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: activePrio >= 3 }),
+      label: createElement(PrioIcon, { isSelected: activeNote?.prio > 3 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -47,7 +41,7 @@ export const FormSelect = ({ prio }) => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: activePrio >= 2 }),
+      label: createElement(PrioIcon, { isSelected: activeNote?.prio > 2 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -58,7 +52,7 @@ export const FormSelect = ({ prio }) => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: activePrio >= 1 }),
+      label: createElement(PrioIcon, { isSelected: activeNote?.prio > 1 }),
     }),
     createElement(FormInput, {
       type: 'radio',
@@ -69,7 +63,7 @@ export const FormSelect = ({ prio }) => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: activePrio >= 0 }),
+      label: createElement(PrioIcon, { isSelected: activeNote?.prio > 0 }),
     }),
     createElement(FormInput, {
       type: 'radio',
