@@ -5,7 +5,6 @@ import { useActiveNote, useStore } from '../store.js'
 import { useEffect } from '../reactive/use-effect.js'
 import { ChevronRightIcon } from './icons/chevron-right-icon.js'
 import { formateDate } from '../lib/formate-date.js'
-import { isSame } from '../reactive/is-same.js'
 import { useRouter } from '../reactive/use-router.js'
 
 export const ListItem = ({ id, subtitle, title, date, prio, isActive }) => {
@@ -66,7 +65,7 @@ export const ListItemDone = ({ id, subtitle, title, isActive }) => {
 
 export const List = () => {
   const [data] = useStore()
-  const [activeNote, setActiveNote] = useActiveNote()
+  const [activeNote] = useActiveNote()
 
   const [activeIndex, setActiveIndex] = useState(-1)
   useEffect(() => {
@@ -74,8 +73,8 @@ export const List = () => {
       setActiveIndex(-1)
       return
     }
-    const findIndex = data.findIndex((entry) => entry.id === activeNote.id)
-    setActiveIndex(findIndex)
+    const foundIndex = data.findIndex((entry) => entry.id === activeNote.id)
+    setActiveIndex(foundIndex)
   }, [activeNote, data])
 
   return createElement(
@@ -91,10 +90,6 @@ export const List = () => {
         isActive: activeIndex === index,
         index,
         id: item.id,
-        setIsActive: () => {
-          setActiveNote(data[index])
-          setActiveIndex(index)
-        },
       })
     ),
     data.length === 0 && 'Leider nichts gefunden'

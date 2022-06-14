@@ -1,7 +1,7 @@
 import { createAttributes } from './create-attributes.js'
 import { createEvents } from './create-events.js'
 
-export const domNode = (node) => {
+export const domNode = (node, id) => {
   let createdNode = node
   if (typeof node === 'function') {
     createdNode = node()
@@ -19,10 +19,13 @@ export const domNode = (node) => {
     }
   }
 
+  if (node?.props?.children) {
+    createdNode.children.push(node.props.children)
+  }
   createdNode.children = createdNode.children.filter((child) => !!child)
 
   createAttributes(createdNode.props, element, createdNode)
-  createEvents(createdNode.synth, element)
+  createEvents(createdNode.synth, element, id)
 
   return { node: createdNode, element }
 }

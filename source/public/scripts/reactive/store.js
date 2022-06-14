@@ -11,7 +11,7 @@ export const create = (state) => {
 
   const update = (value) => {
     nextState =
-      typeof value === 'function' ? destructedElement(value(store)) : destructedElement(value)
+      typeof value === 'function' ? value(destructedElement(store)) : destructedElement(value)
     if (!isSame(store, nextState)) {
       const cloneUpdateStates = [...updateStates]
       cloneUpdateStates.forEach(({ id, setStore }) => {

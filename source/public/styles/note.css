@@ -91,6 +91,7 @@
 }
 
 .note-text {
+  white-space:pre-wrap;
   font-size: 12px;
   line-height: 14px;
   font-weight: 400;

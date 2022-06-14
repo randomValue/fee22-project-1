@@ -4,7 +4,7 @@
   "description": "Testat template",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "w3c": "html-validator --file ./source/public/index.html  --verbose",
     "eslint": "eslint --fix --ext .js './source/public/**/*.js'",
@@ -14,6 +14,9 @@
   "author": "Fabrice Tobler",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/runtime": "^7.18.3",
     "eslint": "^8.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -28,6 +31,9 @@
     "stylelint-prettier": "^2.0.0"
   },
   "dependencies": {
-    "express": "^4.18.0"
+    "express": "^4.18.0",
+    "pouchdb": "^7.3.0",
+    "rxdb": "^12.4.3",
+    "rxjs": "^7.5.5"
   }
 }

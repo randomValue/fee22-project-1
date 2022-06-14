@@ -8,7 +8,7 @@ export const FormSelect = ({ activeNote, setActiveNote }) => {
   const handleClick = useMemo(
     () => (e) => {
       if (e.target.checked) {
-        setActiveNote((state) => ({ ...state, prio: parseInt(e.target.value, 10) }))
+        setActiveNote((state) => ({ ...state, prio: parseInt(e.target.value, 10) + 1 }))
       }
     },
     []

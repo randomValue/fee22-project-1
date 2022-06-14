@@ -9,11 +9,10 @@ import { useRouter } from './reactive/use-router.js'
 const App = () => {
   const [data, setData] = useStore()
   const [, setActiveNote] = useActiveNote()
-
   const { queries } = useRouter()
 
   useEffect(async () => {
-    await fetch('/api/mock')
+    await fetch('/api/all')
       .then((r) => r.json())
       .then((response) => {
         setData(response)

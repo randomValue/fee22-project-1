@@ -3,8 +3,10 @@ import { FormInput } from './form-input.js'
 import { FormLabel } from './form-label.js'
 import { FormSelect } from './form-select.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
+import { backUpData, useStore } from '../store.js'
 
 export const Form = ({ activeNote, setActiveNote, routerPush }) => {
+  const [, setData] = useStore()
   return createElement(
     'form',
     { class: 'note-form' },
@@ -70,7 +72,14 @@ export const Form = ({ activeNote, setActiveNote, routerPush }) => {
             })
               .then((data) => data.json())
               .then((v) => {
-                console.log(v)
+                setData((state) => {
+                  const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
+                  if (foundIndex > -1) {
+                    state[foundIndex] = v.note
+                  }
+                  backUpData.default = state
+                  return state
+                })
               })
           },
         },

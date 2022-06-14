@@ -17,7 +17,10 @@ export const useState = (initialState) => {
   }
   const setState = (state) => {
     const node = mutables.Dom[cachedIndex]
-    node.nextState[index] = typeof state === 'function' ? state(node.state[index]) : state
+    node.nextState[index] =
+      typeof state === 'function'
+        ? state(destructedElement(node.state[index]))
+        : destructedElement(state)
     const foundNeedUpdate = needsUpdate.find((nodeId) => nodeId === cachedIndex)
     if (!foundNeedUpdate) {
       needsUpdate.push(cachedIndex)

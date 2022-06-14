@@ -1,7 +1,7 @@
 import { loopThroughStates } from './loop-through-states.js'
 import { mutables } from './mutables.js'
 
-export const createEvents = (synth, element, node) => {
+export const createEvents = (synth, element, id, node) => {
   Object.entries(synth || {}).forEach(([key, value]) => {
     const handler = key.replace('on', '').toLowerCase()
     const oldHandler = node?.synth[key]
@@ -10,7 +10,7 @@ export const createEvents = (synth, element, node) => {
       mutables.isEventActive = true
       value(e)
       mutables.isEventActive = false
-      loopThroughStates()
+      loopThroughStates(id, true)
     }
     synth[key] = newHandler
     element.addEventListener(handler, newHandler)

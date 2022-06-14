@@ -1,6 +1,9 @@
 import express from 'express'
 import * as path from 'path'
-import { mock } from './source/public/scripts/mock.js'
+import { getData } from './db/get-data.js'
+import { postData } from './db/post-data.js'
+import { routes } from './routes/index.js'
+import { deleteData } from './db/delete-data.js'
 
 const dirname = path.resolve()
 
@@ -10,17 +13,10 @@ const port = 3000
 app.use(express.static(path.join(dirname, './source/public')))
 app.use(express.json())
 
-app.get('/api/mock', (req, res) => {
-  res.json(mock)
-})
-
-app.post('/api/data/:id?', (req, res) => {
-  res.json({ text: 'Erfolgreich gespeichert' })
-})
-
-app.get('/:note?/:edit?', (req, res) => {
-  res.sendFile(path.join(dirname, './source/public/index.html'))
-})
+getData(app)
+deleteData(app)
+postData(app)
+routes(app, dirname)
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console

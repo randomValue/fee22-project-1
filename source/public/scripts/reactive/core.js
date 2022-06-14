@@ -27,8 +27,7 @@ export const buildVDom = (virtualNode, id, parentNode, parentId) => {
   } else if (typeof virtualNode.type === 'function') {
     node.function = virtualNode.type
   }
-
-  const { node: createdNode, element } = domNode(virtualNode)
+  const { node: createdNode, element } = domNode(virtualNode, node.id)
 
   node.doneRendering = true
 

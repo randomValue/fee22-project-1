@@ -82,11 +82,15 @@ export const vNode = {
       }
 
       createAttributes(composition.props, this.domNode)
-      createEvents(composition.synth, this.domNode, this.node)
+      createEvents(composition.synth, this.domNode, this.id, this.node)
 
       this.node = composition
       loopThroughChildren(composition, this)
-      loopThroughStates()
+      if (!mutables.startedStateLooping) {
+        mutables.startedStateLooping = true
+        loopThroughStates(this.id)
+        mutables.startedStateLooping = false
+      }
     }
     this.doneRendering = true
     this.cachedIndex = 0

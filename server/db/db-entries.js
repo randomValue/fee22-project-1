@@ -1,7 +1,8 @@
-const id = 12346
-export const mock = [
+import { uniqueId } from './lib/uniqueId.js'
+
+export const dbEntries = [
   {
-    id,
+    id: uniqueId(),
     prio: 1,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -12,7 +13,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 1,
+    id: uniqueId(),
     prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -23,7 +24,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 2,
+    id: uniqueId(),
     prio: 1,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -34,7 +35,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 3,
+    id: uniqueId(),
     prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -45,7 +46,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 4,
+    id: uniqueId(),
     prio: 2,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -56,7 +57,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 5,
+    id: uniqueId(),
     prio: 5,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -67,7 +68,7 @@ export const mock = [
     done: false,
   },
   {
-    id: id + 6,
+    id: uniqueId(),
     prio: 3,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',
@@ -78,7 +79,7 @@ export const mock = [
     done: true,
   },
   {
-    id: id + 7,
+    id: uniqueId(),
     prio: 1,
     title: 'Einkaufen',
     subtitle: 'Brot, Butter, etc.',

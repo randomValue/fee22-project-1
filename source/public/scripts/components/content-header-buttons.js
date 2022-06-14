@@ -51,10 +51,28 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           const newData = [...data]
           const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)
           if (foundIndex > -1) {
-            newData.splice(foundIndex, 1)
-            backUpData.default = [...newData]
-            setData([...newData])
-            setActiveNote(undefined)
+            fetch(`/delete/${activeNote.id}`, {
+              method: 'POST', // *GET, POST, PUT, DELETE, etc.
+              mode: 'cors', // no-cors, *cors, same-origin
+              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+              credentials: 'same-origin', // include, *same-origin, omit
+              headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              redirect: 'follow', // manual, *follow, error
+              referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            })
+              .then((res) => res.json())
+              .then((id) => {
+                setData((state) => {
+                  const index = state.findIndex((item) => item.id === id)
+                  state.splice(index, 1)
+                  backUpData.default = [...state]
+                  return state
+                })
+                setActiveNote(undefined)
+              })
           }
         },
       },
