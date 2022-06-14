@@ -3,6 +3,7 @@ import { EditIcon } from './icons/edit-icon.js'
 import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
 import { backUpData, useStore } from '../store.js'
+import { fetchPostOptions } from '../lib/fetch-post-options.js'
 
 export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiveNote }) => {
   const [data, setData] = useStore()
@@ -51,18 +52,7 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           const newData = [...data]
           const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)
           if (foundIndex > -1) {
-            fetch(`/delete/${activeNote.id}`, {
-              method: 'POST', // *GET, POST, PUT, DELETE, etc.
-              mode: 'cors', // no-cors, *cors, same-origin
-              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-              credentials: 'same-origin', // include, *same-origin, omit
-              headers: {
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              redirect: 'follow', // manual, *follow, error
-              referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            })
+            fetch(`/delete/${activeNote.id}`, fetchPostOptions)
               .then((res) => res.json())
               .then((id) => {
                 setData((state) => {

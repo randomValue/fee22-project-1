@@ -3,7 +3,6 @@ import { buildVDom } from './core.js'
 import { domNode } from './dom-node.js'
 import { isSame } from './is-same.js'
 
-export let count = 0
 const deleteChildren = (currentChild, parentNode, i) => {
   const node = mutables.Dom[currentChild]
 
@@ -30,7 +29,6 @@ const deleteChildren = (currentChild, parentNode, i) => {
 }
 
 export const loopThroughChildren = (composition, parentNode) => {
-  count += 1
   if (composition.children.length < parentNode.children.length) {
     parentNode.children = parentNode.children.filter((childId) => {
       const childNode = mutables.Dom[childId]

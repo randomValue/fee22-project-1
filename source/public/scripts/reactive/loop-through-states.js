@@ -50,6 +50,8 @@ export const loopThroughStates = (id, isEvent) => {
     })
     cloneNeedsUpdate.forEach((updateId) => {
       const updateNode = mutables.Dom[updateId]
+      const foundId = needsUpdate.findIndex((item) => item === updateId)
+      needsUpdate.splice(foundId, 1)
       if (updateNode) {
         updateNode.render(
           updateNode.function || { ...updateNode.node, props: updateNode.nextProps },

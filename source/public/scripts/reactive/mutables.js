@@ -4,5 +4,4 @@ export const mutables = {
   identifier,
   isInitial: true,
   isEventActive: false,
-  startedStateLooping: false,
 }

@@ -58,11 +58,14 @@ export const vNode = {
       let composition
       if (typeof Comp === 'function') {
         composition = Comp(this.props)
+        this.function = Comp
       } else if (typeof Comp.type === 'function') {
         composition = Comp.type(Comp.props)
+        this.function = Comp.type
       } else {
         composition = Comp
       }
+
       this.doneRendering = true
       composition.children = composition.children.filter((child) => !!child)
 
@@ -80,17 +83,12 @@ export const vNode = {
           delete mutables.Dom[child]
         })
       }
-
       createAttributes(composition.props, this.domNode)
       createEvents(composition.synth, this.domNode, this.id, this.node)
 
       this.node = composition
       loopThroughChildren(composition, this)
-      if (!mutables.startedStateLooping) {
-        mutables.startedStateLooping = true
-        loopThroughStates(this.id)
-        mutables.startedStateLooping = false
-      }
+      loopThroughStates(this.id)
     }
     this.doneRendering = true
     this.cachedIndex = 0
