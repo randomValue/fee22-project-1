@@ -9,6 +9,6 @@ db.get('notes')
   })
   .catch((err) => {
     if (err.status === 404) {
-      db.put({ _id: 'notes', notes: JSON.parse(dbEntries).notes })
+      db.put({ _id: 'notes', notes: dbEntries.notes })
     }
   })

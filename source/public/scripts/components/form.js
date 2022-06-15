@@ -3,11 +3,27 @@ import { FormInput } from './form-input.js'
 import { FormLabel } from './form-label.js'
 import { FormSelect } from './form-select.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
-import { backUpData, useStore } from '../store.js'
-import { fetchPostOptions } from '../lib/fetch-post-options.js'
+import { useStore } from '../store.js'
+import { updateNote } from '../fetch/update-note.js'
+import { uniqueId } from '../lib/uniqueId.js'
+import { useState } from '../reactive/use-state.js'
+import { createNote } from '../fetch/create-note.js'
 
-export const Form = ({ activeNote, setActiveNote, routerPush }) => {
+export const emptyNote = {
+  id: uniqueId(),
+  prio: 0,
+  title: '',
+  subtitle: '',
+  text: '',
+  dueDate: undefined,
+  creationDate: toDate(Date.now()),
+  done: false,
+}
+
+export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
   const [, setData] = useStore()
+  const [newNote, setNewNote] = useState(emptyNote)
+
   return createElement(
     'form',
     { class: 'note-form' },
@@ -16,7 +32,23 @@ export const Form = ({ activeNote, setActiveNote, routerPush }) => {
       placeholder: 'gib bitte einen Titel ein',
       value: activeNote?.title,
       onChange: (e) => {
+        if (isNewEntry) {
+          setNewNote((state) => ({ ...state, title: e.target.value }))
+          return
+        }
         setActiveNote((state) => ({ ...state, title: e.target.value }))
+      },
+    }),
+    createElement(FormLabel, { label: 'Beschreibung:' }),
+    createElement(FormInput, {
+      placeholder: 'gib bitte eine Beschreibung ein',
+      value: activeNote?.subtitle,
+      onChange: (e) => {
+        if (isNewEntry) {
+          setNewNote((state) => ({ ...state, subtitle: e.target.value }))
+          return
+        }
+        setActiveNote((state) => ({ ...state, subtitle: e.target.value }))
       },
     }),
     createElement(FormLabel, { label: 'zu erledigen bis:' }),
@@ -24,17 +56,36 @@ export const Form = ({ activeNote, setActiveNote, routerPush }) => {
       value: parseDate(activeNote?.dueDate),
       type: 'date',
       onChange: (e) => {
+        if (isNewEntry) {
+          setNewNote((state) => ({ ...state, dueDate: toDate(e.target.value) }))
+          return
+        }
         setActiveNote((state) => ({ ...state, dueDate: toDate(e.target.value) }))
       },
     }),
     createElement(FormLabel, { label: 'Relevanz:' }),
-    createElement(FormSelect, { activeNote, setActiveNote }),
+    createElement(FormSelect, {
+      notePrio: isNewEntry ? newNote?.prio : activeNote?.prio,
+      handleClick: (e) => {
+        if (e.target.checked) {
+          if (isNewEntry) {
+            setNewNote((state) => ({ ...state, prio: parseInt(e.target.value, 10) + 1 }))
+            return
+          }
+          setActiveNote((state) => ({ ...state, prio: parseInt(e.target.value, 10) + 1 }))
+        }
+      },
+    }),
     createElement(FormLabel, { class: 'note-label', label: 'Notiz' }),
     createElement(FormInput, {
       class: 'note-textarea',
       type: 'textarea',
       children: activeNote?.text,
       onChange: (e) => {
+        if (isNewEntry) {
+          setNewNote((state) => ({ ...state, text: e.target.value }))
+          return
+        }
         setActiveNote((state) => ({ ...state, text: e.target.value }))
       },
     }),
@@ -58,21 +109,12 @@ export const Form = ({ activeNote, setActiveNote, routerPush }) => {
           type: 'button',
           class: 'button-base button-filled note-button-send',
           onClick: async () => {
-            await fetch(`/api/data/${activeNote?.id}`, {
-              ...fetchPostOptions,
-              body: JSON.stringify(activeNote),
-            })
-              .then((data) => data.json())
-              .then((v) => {
-                setData((state) => {
-                  const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
-                  if (foundIndex > -1) {
-                    state[foundIndex] = v.note
-                  }
-                  backUpData.default = state
-                  return state
-                })
-              })
+            if (isNewEntry) {
+              await createNote(newNote, setData)
+              routerPush(`/${newNote?.id}/edit`)
+              return
+            }
+            await updateNote(activeNote, setData)
           },
         },
         'speichern'

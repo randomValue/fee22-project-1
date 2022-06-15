@@ -4,6 +4,7 @@ import { getData } from './db/get-data.js'
 import { postData } from './db/post-data.js'
 import { routes } from './routes/index.js'
 import { deleteData } from './db/delete-data.js'
+import { postNewData } from './db/post-new-data.js'
 
 const dirname = path.resolve()
 
@@ -16,6 +17,7 @@ app.use(express.json())
 getData(app)
 deleteData(app)
 postData(app)
+postNewData(app)
 routes(app, dirname)
 
 app.listen(port, () => {

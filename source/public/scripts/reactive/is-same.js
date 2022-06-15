@@ -13,7 +13,7 @@ export const isSame = (oldState, state) => {
       return acc
     }, true)
   }
-  if (Array.isArray(state)) {
+  if (Array.isArray(state) && Array.isArray(oldState)) {
     return (
       state.reduce((acc, entry, index) => {
         if (!isSame(entry, oldState[index])) {

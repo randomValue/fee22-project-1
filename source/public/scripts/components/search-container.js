@@ -19,6 +19,7 @@ const filterGroupContainer = { current: undefined }
 
 export const SearchContainer = () => {
   const [toggleSearch, setToggleSearch] = useState(true)
+  const [filterIndex, setFilterIndex] = useState(-1)
 
   useEffect(() => {
     if (!filterGroup.current || !filterGroupContainer.current) {
@@ -53,15 +54,25 @@ export const SearchContainer = () => {
           label: 'Datum',
           disabled: toggleSearch ? true : undefined,
           filterBy: 'dueDate',
+          index: 0,
+          setFilterIndex,
+          isActive: filterIndex === 0,
         }),
         createElement(FilterButton, {
           label: 'Relevanz',
           disabled: toggleSearch ? true : undefined,
           filterBy: 'prio',
+          index: 1,
+          setFilterIndex,
+          isActive: filterIndex === 1,
         }),
         createElement(FilterButton, {
           label: 'Erstellung',
           disabled: toggleSearch ? true : undefined,
+          filterBy: 'creationDate',
+          index: 2,
+          setFilterIndex,
+          isActive: filterIndex === 2,
         })
       )
     ),

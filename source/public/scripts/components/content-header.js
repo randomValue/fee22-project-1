@@ -14,20 +14,29 @@ export const ContentHeader = ({
   return createElement(
     'header',
     { class: 'header' },
+    createElement(
+      'button',
+      {
+        class: 'back-button',
+        onClick: () => {
+          routerPush('/')
+        },
+      },
+      'zurück'
+    ),
     activeNote &&
+      !isNewMode &&
       createElement(
         'div',
         { class: 'header-date-container' },
+        !isEditMode && createElement('div', { class: 'header-date-label' }, 'erledigen bis:'),
         !isEditMode &&
-          !isNewMode &&
-          createElement('div', { class: 'header-date-label' }, 'erledigen bis:'),
-        !isEditMode &&
-          !isNewMode &&
           createElement('div', { class: 'header-date' }, formateDate(new Date(activeNote.dueDate))),
         isEditMode && createElement('h1', { class: 'header-date-label' }, 'bearbeite Notiz')
       ),
     isNewMode && createElement('h1', { class: 'header-date-label' }, 'neue Notiz erstellen'),
     activeNote &&
+      !isNewMode &&
       !isEditMode &&
       createElement(
         'div',

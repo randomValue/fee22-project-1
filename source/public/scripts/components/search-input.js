@@ -1,6 +1,5 @@
 import { createElement } from '../reactive/create-element.js'
 import { backUpData, useStore } from '../store.js'
-import { useState } from '../reactive/use-state.js'
 import { useEffect } from '../reactive/use-effect.js'
 
 const sortData = (filterBy) => (state) => {
@@ -13,26 +12,27 @@ const sortData = (filterBy) => (state) => {
       const bMill = Date.parse(b[filterBy])
       return bMill - aMill
     }
-    return a[filterBy] - b[filterBy]
+    return b[filterBy] - a[filterBy]
   })
   return [...sorted]
 }
 
-export const FilterButton = ({ label, disabled, filterBy }) => {
+export const FilterButton = ({ label, disabled, filterBy, isActive, setFilterIndex, index }) => {
   const [, setData] = useStore()
-  const [toggleFilter, setToggleFilter] = useState(false)
   return createElement(
     'button',
     {
-      class: 'button-base button-outline button-rounded',
+      'aria-selected': isActive ? 'true' : 'false',
+      class: 'button-base button-outline button-rounded filter-button',
       disabled,
       onClick: () => {
-        setToggleFilter(!toggleFilter)
-        if (!toggleFilter) {
+        if (!isActive) {
+          setFilterIndex(index)
           setData(sortData(filterBy))
           return
         }
-        setData(backUpData.default.sort((a, b) => a.id - b.id))
+        setFilterIndex(-1)
+        setData(backUpData.default)
       },
     },
     label

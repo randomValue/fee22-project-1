@@ -7,14 +7,36 @@
   overflow: auto;
   background-color: var(--white);
   z-index: 2;
-  display: grid;
   grid-template-rows: max-content auto;
+  transition: transform 250ms ease-in-out;
+  display: none;
+}
+
+.show-note {
+  display: grid;
+  animation-name: show-note;
+  animation-duration: 250ms;
+}
+
+@keyframes show-note {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (min-width: 894px) {
   .note {
     position: relative;
     z-index: auto;
+    display: grid;
+  }
+
+  .show-note {
+    animation: none;
   }
 }
 
@@ -91,7 +113,7 @@
 }
 
 .note-text {
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   font-size: 12px;
   line-height: 14px;
   font-weight: 400;

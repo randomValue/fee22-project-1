@@ -1,6 +1,4 @@
 import { db } from './db.js'
-import * as fs from 'fs'
-import path from 'path'
 import { writeToDb } from './write-to-db.js'
 
 export const postData = (app) => {

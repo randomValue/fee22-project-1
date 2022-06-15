@@ -9,11 +9,11 @@ export const NoteContent = () => {
   const [activeNote, setActiveNote] = useActiveNote()
   const { queries, push } = useRouter()
 
-  const [, edit] = queries
+  const [noteId, edit] = queries
 
   return createElement(
     'section',
-    { class: 'note' },
+    { class: `note ${!noteId ? '' : 'show-note'}` },
     createElement(ContentHeader, {
       activeNote,
       isEditMode: !!edit?.match(/edit/),
@@ -24,6 +24,11 @@ export const NoteContent = () => {
     }),
     activeNote && edit === undefined && createElement(Content, { activeNote }),
     !!edit?.match(/(edit|create-new)/) &&
-      createElement(Form, { activeNote, setActiveNote, routerPush: push })
+      createElement(Form, {
+        activeNote,
+        setActiveNote,
+        routerPush: push,
+        isNewEntry: edit?.match(/create-new/),
+      })
   )
 }

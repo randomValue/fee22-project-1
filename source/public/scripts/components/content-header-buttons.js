@@ -4,6 +4,7 @@ import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
 import { backUpData, useStore } from '../store.js'
 import { fetchPostOptions } from '../lib/fetch-post-options.js'
+import { updateNote } from '../fetch/update-note.js'
 
 export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiveNote }) => {
   const [data, setData] = useStore()
@@ -31,15 +32,15 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
       {
         class: 'button-base button-outline icon-button-small button-rounded done-button',
         'aria-selected': activeNote?.done ? 'true' : undefined,
-        onClick: () => {
+        onClick: async () => {
           const toggleDone = !activeNote?.done
           const newData = [...data]
           const foundNote = newData.find((note) => note.id === activeNote?.id)
           if (foundNote) {
             foundNote.done = toggleDone
+            await updateNote(foundNote, setData)
+            setActiveNote(foundNote)
           }
-          setActiveNote(foundNote)
-          setData([...newData])
         },
       },
       createElement(CheckIcon)

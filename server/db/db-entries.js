@@ -1,4 +1,4 @@
-import { uniqueId } from './lib/uniqueId.js'
+import { uniqueId } from '../../source/public/scripts/lib/uniqueId.js'
 
 export const dbEntries = [
   {
