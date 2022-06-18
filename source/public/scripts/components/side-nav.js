@@ -17,6 +17,7 @@ export const SideNav = () => {
         'button',
         {
           class: 'button-base add-button',
+          title: 'neue Notiz erstellen',
           onClick: () => {
             push('/new/create-new')
           },

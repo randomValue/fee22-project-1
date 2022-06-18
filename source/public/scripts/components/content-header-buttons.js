@@ -18,6 +18,7 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
         class: `button-base icon-button-small button-rounded edit-button ${
           queries?.[1] === 'edit' ? 'edit-button-active' : ''
         }`,
+        title: 'bearbeiten',
         disabled: queries?.[1] === 'edit' || undefined,
         onClick: () => {
           if (activeNote) {
@@ -32,6 +33,7 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
       {
         class: 'button-base button-outline icon-button-small button-rounded done-button',
         'aria-selected': activeNote?.done ? 'true' : undefined,
+        title: 'als erledigt markieren',
         onClick: async () => {
           const toggleDone = !activeNote?.done
           const newData = [...data]
@@ -49,6 +51,7 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
       'button',
       {
         class: 'button-base icon-button-small button-rounded delete-button',
+        title: 'löschen',
         onClick: () => {
           const newData = [...data]
           const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)

@@ -1,5 +1,6 @@
 import { createElement } from '../reactive/create-element.js'
-import { FilterButton, SearchInput } from './search-input.js'
+import { SearchInput } from './search-input.js'
+import { FilterButton } from './filter-buttons.js'
 import { useState } from '../reactive/use-state.js'
 import { useEffect } from '../reactive/use-effect.js'
 import { FilterIcon } from './icons/filter-icon.js'
@@ -10,6 +11,7 @@ export const ToggleFilterButton = ({ handleClick }) =>
     {
       class: 'button-base icon-button-small button-filled button-rounded',
       onClick: handleClick,
+      title: 'Notizen filtern',
     },
     createElement(FilterIcon)
   )
@@ -51,28 +53,37 @@ export const SearchContainer = () => {
           },
         },
         createElement(FilterButton, {
-          label: 'Datum',
+          label: 'Erledigt',
           disabled: toggleSearch ? true : undefined,
-          filterBy: 'dueDate',
+          filterBy: 'done',
           index: 0,
           setFilterIndex,
           isActive: filterIndex === 0,
+          isFilter: true,
         }),
         createElement(FilterButton, {
-          label: 'Relevanz',
+          label: 'Datum',
           disabled: toggleSearch ? true : undefined,
-          filterBy: 'prio',
+          filterBy: 'dueDate',
           index: 1,
           setFilterIndex,
           isActive: filterIndex === 1,
         }),
         createElement(FilterButton, {
-          label: 'Erstellung',
+          label: 'Relevanz',
           disabled: toggleSearch ? true : undefined,
-          filterBy: 'creationDate',
+          filterBy: 'prio',
           index: 2,
           setFilterIndex,
           isActive: filterIndex === 2,
+        }),
+        createElement(FilterButton, {
+          label: 'Erstellung',
+          disabled: toggleSearch ? true : undefined,
+          filterBy: 'creationDate',
+          index: 3,
+          setFilterIndex,
+          isActive: filterIndex === 3,
         })
       )
     ),

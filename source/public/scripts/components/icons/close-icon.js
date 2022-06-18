@@ -1,12 +1,12 @@
 import { createElement } from '../../reactive/create-element.js'
 
-export const ChevronRightIcon = ({ svgProps, pathProps }) =>
+export const CloseIcon = ({ svgProps, pathProps }) =>
   createElement(
     'svg',
     { width: '24', height: '24', viewBox: '0 0 24 24', fill: 'none', ...svgProps },
     createElement('path', {
-      d: 'M6.11499 20.23L7.88499 22L17.885 12L7.88499 2L6.11499 3.77L14.345 12L6.11499 20.23Z',
-      fill: 'white',
+      d: 'M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z',
+      fill: 'currentColor',
       ...pathProps,
     })
   )

@@ -1,43 +1,8 @@
 import { createElement } from '../reactive/create-element.js'
 import { backUpData, useStore } from '../store.js'
 import { useEffect } from '../reactive/use-effect.js'
-
-const sortData = (filterBy) => (state) => {
-  if (backUpData.default.length === 0) {
-    backUpData.default.push(...state)
-  }
-  const sorted = [...backUpData.default].sort((a, b) => {
-    if (filterBy === 'dueDate' || filterBy === 'creationDate') {
-      const aMill = Date.parse(a[filterBy])
-      const bMill = Date.parse(b[filterBy])
-      return bMill - aMill
-    }
-    return b[filterBy] - a[filterBy]
-  })
-  return [...sorted]
-}
-
-export const FilterButton = ({ label, disabled, filterBy, isActive, setFilterIndex, index }) => {
-  const [, setData] = useStore()
-  return createElement(
-    'button',
-    {
-      'aria-selected': isActive ? 'true' : 'false',
-      class: 'button-base button-outline button-rounded filter-button',
-      disabled,
-      onClick: () => {
-        if (!isActive) {
-          setFilterIndex(index)
-          setData(sortData(filterBy))
-          return
-        }
-        setFilterIndex(-1)
-        setData(backUpData.default)
-      },
-    },
-    label
-  )
-}
+import { SearchIcon } from './icons/search-icon.js'
+import { CloseIcon } from './icons/close-icon.js'
 
 const inputRef = { current: undefined }
 export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
@@ -78,11 +43,18 @@ export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
         })
       },
     }),
-    createElement('button', {
-      class: 'button-base icon-button-small search-button',
-      onClick: () => {
-        setToggleSearch(!toggleSearch)
+    createElement(
+      'button',
+      {
+        class: 'button-base icon-button-small search-button',
+        title: 'Toggle Suche',
+        onClick: () => {
+          setToggleSearch(!toggleSearch)
+        },
       },
-    })
+      createElement(toggleSearch ? CloseIcon : SearchIcon, {
+        svgProps: { class: 'search-input-toggle-button' },
+      })
+    )
   )
 }

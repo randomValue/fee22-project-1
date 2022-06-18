@@ -68,7 +68,7 @@
 }
 
 .note-button-send {
-  color: var(--white);
+  color: var(--mono-50);
   background-color: var(--primary);
   border-radius: var(--rounded-sm);
 }

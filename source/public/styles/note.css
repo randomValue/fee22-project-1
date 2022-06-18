@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: var(--white);
+  background-color: var(--mono-50);
   z-index: 2;
   grid-template-rows: max-content auto;
   transition: transform 250ms ease-in-out;
@@ -48,9 +48,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-8);
-  color: var(--white);
+  color: var(--mono-50);
   position: sticky;
   top: 0;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mono-50);
 }
 
 .header-date-container {
@@ -58,6 +65,10 @@
   align-items: center;
   gap: var(--spacing-2);
   font-size: 12px;
+}
+
+.nav-button-icon{
+  flex-shrink: 0;
 }
 
 @media (min-width: 1194px) {
@@ -84,7 +95,7 @@
 }
 
 .header-prio-label {
-  color: var(--white);
+  color: var(--mono-50);
   font-size: 12px;
   display: none;
 }
@@ -124,7 +135,7 @@
 }
 
 .edit-button {
-  background-color: var(--white);
+  background-color: var(--mono-50);
   color: var(--primary);
 }
 
@@ -145,27 +156,27 @@
 }
 
 .done-button {
-  border: 1px solid var(--white);
-  color: var(--white);
+  border: 1px solid var(--mono-50);
+  color: var(--mono-50);
   box-shadow: none;
 }
 
 .done-button[aria-selected='true'] {
   background-color: var(--green);
-  color: var(--white);
+  color: var(--mono-50);
   border-color: var(--green);
 }
 
 .done-button[aria-selected='true']:hover,
 .done-button[aria-selected='true']:focus-visible {
   background-color: var(--green-600);
-  color: var(--white);
+  color: var(--mono-50);
   border-color: var(--green-600);
 }
 
 .done-button[aria-selected='true']:active {
   background-color: var(--green-900);
-  color: var(--white);
+  color: var(--mono-50);
   border-color: var(--green-900);
 }
 
@@ -184,7 +195,7 @@
 
 .delete-button {
   background-color: var(--orange);
-  color: var(--white);
+  color: var(--mono-50);
 }
 
 .delete-button:hover,
