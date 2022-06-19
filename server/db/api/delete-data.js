@@ -1,5 +1,3 @@
-import fs from 'fs.js'
-import path from 'path.js'
 import { db } from '../db.js'
 import { writeToDb } from '../write-to-db.js'
 
