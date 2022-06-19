@@ -20,8 +20,8 @@ export const List = () => {
   }, [activeNote, data])
 
   return createElement(
-    'ul',
-    { class: 'nav-list' },
+    data.length === 0 ? 'div' : 'ul',
+    { class: data.length === 0 ? 'nav-list-empty' : 'nav-list' },
     data.map((item, index) =>
       createElement(item.done ? ListItemDone : ListItem, {
         title: item.title,
