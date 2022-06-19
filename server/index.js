@@ -1,10 +1,10 @@
 import express from 'express'
 import * as path from 'path'
-import { getData } from './db/get-data.js'
-import { postData } from './db/post-data.js'
+import { getData } from './db/api/get-data.js'
+import { postData } from './db/api/post-data.js'
 import { routes } from './routes/index.js'
-import { deleteData } from './db/delete-data.js'
-import { postNewData } from './db/post-new-data.js'
+import { deleteData } from './db/api/delete-data.js'
+import { postNewData } from './db/api/post-new-data.js'
 
 const dirname = path.resolve()
 

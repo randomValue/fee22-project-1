@@ -19,10 +19,9 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           queries?.[1] === 'edit' ? 'edit-button-active' : ''
         }`,
         title: 'bearbeiten',
-        disabled: queries?.[1] === 'edit' || undefined,
         onClick: () => {
           if (activeNote) {
-            routerPush(`/${activeNote.id}/edit`)
+            routerPush(`/${activeNote.id}${queries?.[1] ? '' : '/edit'}`)
           }
         },
       },
@@ -58,7 +57,7 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           if (foundIndex > -1) {
             fetch(`/delete/${activeNote.id}`, fetchPostOptions)
               .then((res) => res.json())
-              .then((id) => {
+              .then(({ id }) => {
                 setData((state) => {
                   const index = state.findIndex((item) => item.id === id)
                   state.splice(index, 1)

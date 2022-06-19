@@ -1,4 +1,4 @@
-import { db } from './db.js'
+import { db } from '../db.js'
 
 export const getData = (app) => {
   app.get('/api/:noteId?', async (req, res) => {

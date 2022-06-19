@@ -1,0 +1,33 @@
+.switch {
+  width: 48px;
+  border: 1px solid var(--primary);
+  height: 24px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.switch-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--primary-600);
+  left: -1px;
+  top: -1px;
+  transform: translate(100%, 0);
+  transition: transform 250ms ease-in-out;
+  color: var(--mono-50);
+}
+
+.switch-icon-on {
+  color: var(--mono-50);
+  transform: translate(0, 0);
+}
+
+.theme-icon {
+  width: 16px;
+  height: 16px;
+}

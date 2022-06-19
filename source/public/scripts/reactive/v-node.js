@@ -42,6 +42,9 @@ export const vNode = {
     this.cachedEffects = 0
     this.cachedMemos = 0
     if (Comp && (!sameState || !sameProps || !sameNode)) {
+      if (Comp.type?.name === 'Switch') {
+        console.log('called')
+      }
       this.nextState.forEach((entry, index) => {
         if (Array.isArray(entry)) {
           this.state[index] = [...entry]

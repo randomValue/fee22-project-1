@@ -2,6 +2,7 @@ import { mutables } from './mutables.js'
 import { vNode } from './v-node.js'
 import { domNode } from './dom-node.js'
 import { createRef } from './create-ref.js'
+import { loopThroughStates } from './loop-through-states.js'
 
 export const buildVDom = (virtualNode, id, parentNode, parentId) => {
   if (typeof virtualNode === 'string' || typeof virtualNode === 'number' || !virtualNode) {
@@ -57,6 +58,7 @@ export const buildVDom = (virtualNode, id, parentNode, parentId) => {
       node.children[i] = childId
       buildVDom(child, childId, element, node.parentId)
     })
+  loopThroughStates(node.id)
   return mutables.Dom
 }
 

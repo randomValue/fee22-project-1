@@ -1,7 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-import { db } from './db.js'
-import { writeToDb } from './write-to-db.js'
+import fs from 'fs.js'
+import path from 'path.js'
+import { db } from '../db.js'
+import { writeToDb } from '../write-to-db.js'
 
 export const deleteData = (app) => {
   app.post('/delete/:id?', async (req, res) => {

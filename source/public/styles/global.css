@@ -1,137 +1,157 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Inter, sans-serif;
-    font-size: 12px;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--mono-50);
 }
 
 button {
-    border: none;
-    outline: none;
-    font-family: Inter, sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 textarea {
-    font-family: Inter, sans-serif;
-    font-size: 12px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
 }
 
 :root {
-    --base: 4px;
-    --spacing-1: calc(1 * 4px);
-    --spacing-2: calc(2 * 4px);
-    --spacing-3: calc(3 * 4px);
-    --spacing-4: calc(4 * 4px);
-    --spacing-5: calc(5 * 4px);
-    --spacing-6: calc(6 * 4px);
-    --spacing-7: calc(7 * 4px);
-    --spacing-8: calc(8 * 4px);
-    --spacing-9: calc(9 * 4px);
-    --spacing-10: calc(10 * 4px);
-    --spacing-11: calc(11 * 4px);
-    --spacing-12: calc(12 * 4px);
-    --spacing-22: calc(22 * 4px);
-    --rounded-xs: 4px;
-    --rounded-sm: 6px;
-    --rounded-md: 8px;
-    --rounded-lg: 12px;
-    --rounded-xl: 16px;
-    --primary: rgb(149 137 224 / 100%);
-    --primary-dark: rgb(117 104 197 / 100%);
-    --primary-light: rgb(203 196 248 / 100%);
-    --primary-300: rgb(236 233 255 / 100%);
-    --primary-600: rgb(131 119 206 / 100%);
-    --primary-900: rgb(93 83 156 / 100%);
-    --green: rgb(137 224 209 / 100%);
-    --green-dark: rgb(61 165 147 / 100%);
-    --green-100: rgb(183 248 236 / 100%);
-    --green-600: rgb(61 165 147 / 100%);
-    --green-900: rgb(42 133 117 / 100%);
-    --red: rgb(255 55 163 / 100%);
-    --orange: rgb(254 144 81 / 100%);
-    --orange-600: rgb(231 124 64 / 100%);
-    --orange-900: rgb(180 87 34 / 100%);
-    --mono-50: rgb(255 255 255 / 100%);
-    --mono-1000: rgb(0 0 0 / 100%);
-    --mono-500: rgb(239 237 255 / 100%);
-    --yellow: rgb(255 184 0 / 50%);
-    --bg-purple: #E28FFF;
-    --mono-100: rgb(240 240 240 / 100%);
-    --mono-200: rgb(220 220 220 / 100%);
-    --mono-300: rgb(200 200 200 / 100%);
-    --mono-400: rgb(180 180 180 / 100%);
-    --mono-600: rgb(160 160 160 / 100%);
-    --mono-700: rgb(140 140 140 / 100%);
-    --mono-800: rgb(120 120 120 / 100%);
-    --mono-900: rgb(100 100 100 / 100%);
+  --base: 4px;
+  --spacing-1: calc(1 * 4px);
+  --spacing-2: calc(2 * 4px);
+  --spacing-3: calc(3 * 4px);
+  --spacing-4: calc(4 * 4px);
+  --spacing-5: calc(5 * 4px);
+  --spacing-6: calc(6 * 4px);
+  --spacing-7: calc(7 * 4px);
+  --spacing-8: calc(8 * 4px);
+  --spacing-9: calc(9 * 4px);
+  --spacing-10: calc(10 * 4px);
+  --spacing-11: calc(11 * 4px);
+  --spacing-12: calc(12 * 4px);
+  --spacing-22: calc(22 * 4px);
+  --rounded-xs: 4px;
+  --rounded-sm: 6px;
+  --rounded-md: 8px;
+  --rounded-lg: 12px;
+  --rounded-xl: 16px;
+  --primary: rgb(149 137 224 / 100%);
+  --primary-dark: rgba(117 104 197 / 100%);
+  --primary-light: rgb(203 196 248 / 100%);
+  --primary-600: rgb(131 119 206 / 100%);
+  --primary-900: rgb(93 83 156 / 100%);
+  --green: rgb(137 224 209 / 100%);
+  --green-dark: rgb(61 165 147 / 100%);
+  --green-100: rgb(183 248 236 / 100%);
+  --green-600: rgb(61 165 147 / 100%);
+  --green-900: rgb(42 133 117 / 100%);
+  --red: rgb(255 55 163 / 100%);
+  --orange: rgb(254 144 81 / 100%);
+  --orange-600: rgb(231 124 64 / 100%);
+  --orange-900: rgb(180 87 34 / 100%);
+  --yellow: rgb(255 184 0 / 50%);
+  --bg: #e28fff;
+  --mono-50: rgb(255 255 255 / 100%);
+  --mono-200: rgb(220 220 220 / 100%);
+  --mono-500: rgb(239 237 255 / 100%);
+  --mono-800: rgb(120 120 120 / 100%);
+  --mono-1000: rgb(0 0 0 / 100%);
+  --gradient: linear-gradient(-45deg, transparent, var(--yellow));
+}
+
+.container[data-theme='dark'] {
+  --primary: rgb(8 174 168 / 100%);
+  --primary-dark: rgb(68 253 247 / 100%);
+  --primary-light: rgb(157 211 210 / 100%);
+  --primary-600: rgb(109 255 250 / 100%);
+  --primary-900: rgb(185 255 253 / 100%);
+  --green: rgb(154 23 216 / 100%);
+  --green-dark: rgb(224 159 255 / 100%);
+  --green-100: rgb(103 10 147 / 100%);
+  --green-600: rgb(202 126 238 / 100%);
+  --green-900: rgb(229 178 254 / 100%);
+  --red: rgb(255 55 163 / 100%);
+  --orange: rgb(254 144 81 / 100%);
+  --orange-600: rgb(231 124 64 / 100%);
+  --orange-900: rgb(180 87 34 / 100%);
+  --yellow: rgb(255 184 0 / 50%);
+  --bg: rgb(21 20 20 / 100%);
+  --mono-50: rgb(46 54 66 / 100%);
+  --mono-200: rgb(66 77 93 / 100%);
+  --mono-500: rgb(48 85 139 / 100%);
+  --mono-800: rgb(161 173 192 / 100%);
+  --mono-1000: rgb(207 220 239 / 100%);
+  --gradient: none;
 }
 
 .container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-image: linear-gradient(-45deg, transparent, var(--yellow));
-    background-color: var(--bg-purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-image: var(--gradient);
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 894px) {
-    .container {
-        padding: var(--spacing-8);
-    }
+  .container {
+    padding: var(--spacing-8);
+  }
 }
 
 @media (min-width: 1194px) {
-    .container {
-        padding: var(--spacing-12);
-    }
+  .container {
+    padding: var(--spacing-12);
+  }
 }
 
 .app {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
-    background-color: var(--mono-50);
-    overflow: hidden;
-    display: grid;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+  background-color: var(--mono-50);
+  overflow: hidden;
+  display: grid;
 }
 
 @media (min-width: 894px) {
-    .app {
-        border-radius: var(--rounded-sm);
-    }
+  .app {
+    border-radius: var(--rounded-sm);
+  }
 }
 
 @media (min-width: 1194px) {
-    .app {
-        max-width: 1096px;
-        max-height: 574px;
-    }
+  .app {
+    max-width: 1096px;
+    max-height: 574px;
+  }
 }
 
 .main {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 312px auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 312px auto;
 }
 
 .active-prio {
-    color: var(--red);
+  color: var(--red);
 }

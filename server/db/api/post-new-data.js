@@ -1,5 +1,5 @@
-import { db } from './db.js'
-import { writeToDb } from './write-to-db.js'
+import { db } from '../db.js'
+import { writeToDb } from '../write-to-db.js'
 
 export const postNewData = (app) => {
   app.post('/api/new', async (req, res) => {

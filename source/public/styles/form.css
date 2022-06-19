@@ -21,6 +21,8 @@
   padding: 0 var(--spacing-2);
   font-size: 12px;
   outline: none;
+  background-color: transparent;
+  color: var(--mono-1000);
 }
 
 .note-input:hover {

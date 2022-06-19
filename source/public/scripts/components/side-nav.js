@@ -3,6 +3,7 @@ import { SearchContainer } from './search-container.js'
 import { NoteList } from './note-list.js'
 import { AddIcon } from './icons/add-icon.js'
 import { useRouter } from '../reactive/use-router.js'
+import { Switch } from './switch.js'
 
 export const SideNav = () => {
   const { push } = useRouter()
@@ -10,6 +11,7 @@ export const SideNav = () => {
     'div',
     { class: 'side-nav' },
     createElement(SearchContainer),
+    createElement('div', { class: 'side-nav-switch' }, createElement(Switch)),
     createElement(
       'div',
       { class: 'add-button-container' },
