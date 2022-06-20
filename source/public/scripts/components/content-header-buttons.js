@@ -3,7 +3,6 @@ import { EditIcon } from './icons/edit-icon.js'
 import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
 import { backUpData, useStore } from '../store.js'
-import { fetchPostOptions } from '../lib/fetch-post-options.js'
 import { updateNote } from '../fetch/update-note.js'
 import { deleteNote } from '../fetch/delete-note.js'
 

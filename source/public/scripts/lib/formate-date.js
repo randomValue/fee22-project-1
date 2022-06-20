@@ -24,10 +24,6 @@ export const formateDate = (date) => {
   }
 }
 
-export const parseDate = (date) => {
-  return moment(date).format('YYYY-MM-DD')
-}
+export const parseDate = (date) => moment(date).format('YYYY-MM-DD')
 
-export const toDate = (date) => {
-  return moment(date).toDate()
-}
+export const toDate = (date) => moment(date).toDate()
