@@ -1,35 +1,30 @@
 import { createElement } from '../reactive/create-element.js'
 import { backUpData, useStore } from '../store.js'
-import { useEffect } from '../reactive/use-effect.js'
 import { SearchIcon } from './icons/search-icon.js'
+import { useState } from '../reactive/use-state.js'
 import { CloseIcon } from './icons/close-icon.js'
 
 const inputRef = { current: undefined }
-export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
+export const SearchInput = () => {
   const [, setData] = useStore()
-
-  useEffect(() => {
-    if (toggleSearch) {
-      inputRef.current?.focus()
-    }
-  }, [toggleSearch])
+  const [hasCloseIcon, setHasCloseIcon] = useState(false)
 
   return createElement(
     'div',
     {
-      class: `search-input-container ${!toggleSearch && 'search-input-collapsed'}`,
+      class: 'search-input-container',
     },
     createElement('input', {
       class: 'search-input',
       name: 'search',
       type: 'text',
-      onFocus: () => {
-        setToggleSearch(true)
-      },
       ref: (ref) => {
         inputRef.current = ref
       },
       onInput: (e) => {
+        if (e.target.value) {
+          setHasCloseIcon(true)
+        }
         setData((state) => {
           if (backUpData.default.length === 0) {
             backUpData.default.push(...state)
@@ -47,12 +42,19 @@ export const SearchInput = ({ toggleSearch, setToggleSearch }) => {
       'button',
       {
         class: 'button-base icon-button-small search-button',
-        title: 'Toggle Suche',
+        title: hasCloseIcon ? 'Suche zurücksetzen' : 'Suche',
         onClick: () => {
-          setToggleSearch(!toggleSearch)
+          if (inputRef.current) {
+            inputRef.current.focus()
+            if (hasCloseIcon) {
+              inputRef.current.value = ''
+              setData(backUpData.default)
+              setHasCloseIcon(false)
+            }
+          }
         },
       },
-      createElement(toggleSearch ? CloseIcon : SearchIcon, {
+      createElement(hasCloseIcon ? CloseIcon : SearchIcon, {
         svgProps: { class: 'search-input-toggle-button' },
       })
     )

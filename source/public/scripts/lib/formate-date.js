@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 export const formateDate = (date) => {
+  if (!date) {
+    return ''
+  }
   const dueDate = moment(date)
   const today = moment().startOf('day')
 

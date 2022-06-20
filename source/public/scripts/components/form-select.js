@@ -10,35 +10,13 @@ export const FormSelect = ({ notePrio, handleClick }) => {
     null,
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio > 4 }),
+      label: createElement(PrioIcon, { isSelected: prio > 0 }),
     }),
     createElement(FormInput, {
       type: 'radio',
       name: 'prio',
       class: 'hide-radio',
-      value: '4',
-      onChange: handleClick,
-    }),
-    createElement(FormLabel, {
-      class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio > 3 }),
-    }),
-    createElement(FormInput, {
-      type: 'radio',
-      name: 'prio',
-      class: 'hide-radio',
-      value: '3',
-      onChange: handleClick,
-    }),
-    createElement(FormLabel, {
-      class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio > 2 }),
-    }),
-    createElement(FormInput, {
-      type: 'radio',
-      name: 'prio',
-      class: 'hide-radio',
-      value: '2',
+      value: '0',
       onChange: handleClick,
     }),
     createElement(FormLabel, {
@@ -54,13 +32,35 @@ export const FormSelect = ({ notePrio, handleClick }) => {
     }),
     createElement(FormLabel, {
       class: 'prio-select-button',
-      label: createElement(PrioIcon, { isSelected: prio > 0 }),
+      label: createElement(PrioIcon, { isSelected: prio > 2 }),
     }),
     createElement(FormInput, {
       type: 'radio',
       name: 'prio',
       class: 'hide-radio',
-      value: '0',
+      value: '2',
+      onChange: handleClick,
+    }),
+    createElement(FormLabel, {
+      class: 'prio-select-button',
+      label: createElement(PrioIcon, { isSelected: prio > 3 }),
+    }),
+    createElement(FormInput, {
+      type: 'radio',
+      name: 'prio',
+      class: 'hide-radio',
+      value: '3',
+      onChange: handleClick,
+    }),
+    createElement(FormLabel, {
+      class: 'prio-select-button',
+      label: createElement(PrioIcon, { isSelected: prio > 4 }),
+    }),
+    createElement(FormInput, {
+      type: 'radio',
+      name: 'prio',
+      class: 'hide-radio',
+      value: '4',
       onChange: handleClick,
     })
   )

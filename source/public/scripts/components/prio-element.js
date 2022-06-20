@@ -9,7 +9,7 @@ export const PrioElement = ({ prio }) =>
     null,
     prioArray.map((entry, index) =>
       createElement(PrioIcon, {
-        isSelected: index > prioArray.length - 1 - prio,
+        isSelected: index < prio,
       })
     )
   )

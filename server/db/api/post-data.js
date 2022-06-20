@@ -1,24 +1,24 @@
 import { db } from '../db.js'
-import { writeToDb } from '../write-to-db.js'
 
 export const postData = (app) => {
-  app.post('/api/data/:id?', async (req, res) => {
-    const { id } = req.params
-    let note
+  app.post('/api/new', async (req, res) => {
+    const note = req.body
+    const hasNote = !!Object.keys(note).length
 
-    if (id) {
-      await db.get('notes').then((data) => {
-        const foundIndex = data.notes.findIndex((entry) => entry.id === id)
-        if (foundIndex > -1) {
-          data.notes[foundIndex] = req.body
-          note = data.notes[foundIndex]
-          writeToDb(data)
-        }
-      })
+    if (hasNote) {
+      await db
+        .get('notes')
+        .then((data) => {
+          data.notes.unshift(note)
+          db.put({ _id: 'notes', ...data })
+          res.json({
+            text: 'Erfolgreich neue Notiz erstellt',
+            note,
+          })
+        })
+        .catch((err) => {
+          res.status(err.status).json({ text: err.message })
+        })
     }
-    res.json({
-      text: 'Erfolgreich gespeichert',
-      note,
-    })
   })
 }

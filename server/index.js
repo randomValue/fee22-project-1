@@ -1,10 +1,10 @@
 import express from 'express'
 import * as path from 'path'
 import { getData } from './db/api/get-data.js'
-import { postData } from './db/api/post-data.js'
+import { putData } from './db/api/put-data.js'
 import { routes } from './routes/index.js'
 import { deleteData } from './db/api/delete-data.js'
-import { postNewData } from './db/api/post-new-data.js'
+import { postData } from './db/api/post-data.js'
 
 const dirname = path.resolve()
 
@@ -16,8 +16,8 @@ app.use(express.json())
 
 getData(app)
 deleteData(app)
+putData(app)
 postData(app)
-postNewData(app)
 routes(app, dirname)
 
 app.listen(port, () => {

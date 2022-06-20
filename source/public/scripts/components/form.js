@@ -3,7 +3,7 @@ import { FormInput } from './form-input.js'
 import { FormLabel } from './form-label.js'
 import { FormSelect } from './form-select.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
-import { useStore } from '../store.js'
+import { backUpData, useStore } from '../store.js'
 import { updateNote } from '../fetch/update-note.js'
 import { uniqueId } from '../lib/uniqueId.js'
 import { useState } from '../reactive/use-state.js'
@@ -15,7 +15,7 @@ export const emptyNote = {
   title: '',
   subtitle: '',
   text: '',
-  dueDate: undefined,
+  dueDate: null,
   creationDate: toDate(Date.now()),
   done: false,
 }
@@ -110,11 +110,26 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
           class: 'button-base button-filled note-button-send',
           onClick: async () => {
             if (isNewEntry) {
-              await createNote(newNote, setData)
+              await createNote(newNote, setData).then((v) => {
+                setData((state) => {
+                  state.unshift(v.note)
+                  backUpData.default = state
+                  return state
+                })
+              })
               routerPush(`/${newNote?.id}/edit`)
               return
             }
-            await updateNote(activeNote, setData)
+            await updateNote(activeNote).then((v) => {
+              setData((state) => {
+                const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
+                if (foundIndex > -1) {
+                  state[foundIndex] = v.note
+                }
+                backUpData.default = state
+                return state
+              })
+            })
           },
         },
         'speichern'

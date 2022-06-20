@@ -36,7 +36,11 @@ export const ContentHeader = ({
       !!activeNote &&
         !isEditMode &&
         !isNewMode &&
-        createElement('div', { class: 'header-date' }, formateDate(new Date(activeNote?.dueDate))),
+        createElement(
+          'div',
+          { class: 'header-date' },
+          formateDate(activeNote?.dueDate ? new Date(activeNote.dueDate) : undefined)
+        ),
       isEditMode && createElement('h1', { class: 'header-date-label' }, 'bearbeite Notiz'),
       isNewMode && createElement('h1', { class: 'header-date-label' }, 'neue Notiz erstellen')
     ),

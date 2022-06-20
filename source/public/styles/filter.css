@@ -1,17 +1,7 @@
-.filter-group-container {
-  transition: width 250ms ease-in-out;
-  height: 100%;
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  position: relative;
-  height: var(--spacing-12);
-}
-
 .filter-group {
   display: flex;
   gap: var(--spacing-1);
-  position: absolute;
+  width: 100%;
 }
 
 .filter-button[aria-selected='true'] {

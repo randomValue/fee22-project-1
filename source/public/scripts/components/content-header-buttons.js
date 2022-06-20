@@ -5,6 +5,7 @@ import { DeleteIcon } from './icons/delete-icon.js'
 import { backUpData, useStore } from '../store.js'
 import { fetchPostOptions } from '../lib/fetch-post-options.js'
 import { updateNote } from '../fetch/update-note.js'
+import { deleteNote } from '../fetch/delete-note.js'
 
 export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiveNote }) => {
   const [data, setData] = useStore()
@@ -39,7 +40,16 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           const foundNote = newData.find((note) => note.id === activeNote?.id)
           if (foundNote) {
             foundNote.done = toggleDone
-            await updateNote(foundNote, setData)
+            await updateNote(foundNote).then((v) => {
+              setData((state) => {
+                const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
+                if (foundIndex > -1) {
+                  state[foundIndex] = v.note
+                }
+                backUpData.default = state
+                return state
+              })
+            })
             setActiveNote(foundNote)
           }
         },
@@ -51,21 +61,19 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
       {
         class: 'button-base icon-button-small button-rounded delete-button',
         title: 'löschen',
-        onClick: () => {
+        onClick: async () => {
           const newData = [...data]
           const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)
           if (foundIndex > -1) {
-            fetch(`/delete/${activeNote.id}`, fetchPostOptions)
-              .then((res) => res.json())
-              .then(({ id }) => {
-                setData((state) => {
-                  const index = state.findIndex((item) => item.id === id)
-                  state.splice(index, 1)
-                  backUpData.default = [...state]
-                  return state
-                })
-                setActiveNote(undefined)
+            await deleteNote(activeNote.id).then(({ id }) => {
+              setData((state) => {
+                const index = state.findIndex((item) => item.id === id)
+                state.splice(index, 1)
+                backUpData.default = [...state]
+                return state
               })
+              setActiveNote(undefined)
+            })
           }
         },
       },

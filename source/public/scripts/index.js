@@ -5,6 +5,7 @@ import { NoteContent } from './components/note-content.js'
 import { backUpData, useActiveNote, useStore } from './store.js'
 import { useEffect } from './reactive/use-effect.js'
 import { useRouter } from './reactive/use-router.js'
+import { readNote } from './fetch/read-note.js'
 
 const App = () => {
   const [data, setData] = useStore()
@@ -12,14 +13,12 @@ const App = () => {
   const { queries } = useRouter()
 
   useEffect(async () => {
-    await fetch('/api/all')
-      .then((r) => r.json())
-      .then((response) => {
-        setData(response)
-        backUpData.default.push(...response)
-        const foundNote = response.find((entry) => entry.id.toString() === queries[0])
-        setActiveNote(foundNote)
-      })
+    await readNote().then((response) => {
+      setData(response)
+      backUpData.default.push(...response)
+      const foundNote = response.find((entry) => entry.id.toString() === queries[0])
+      setActiveNote(foundNote)
+    })
   }, [])
 
   useEffect(() => {

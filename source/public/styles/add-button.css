@@ -1,9 +1,12 @@
 .add-button {
+  position: absolute;
+  bottom: 0;
+  transform: translate(0, var(--spacing-5));
+  right: var(--spacing-3);
   color: var(--mono-50);
   background-color: var(--green);
   width: var(--spacing-8);
   height: var(--spacing-8);
-  transform: translate(0, -10px);
   border-radius: var(--spacing-4);
   box-shadow: 0 0 4px rgb(0 0 0 / 50%);
 }
