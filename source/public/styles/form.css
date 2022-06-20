@@ -10,6 +10,7 @@
 }
 
 .note-label {
+  color: var(--mono-1000);
   grid-column: 1;
 }
 
