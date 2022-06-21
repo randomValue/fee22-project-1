@@ -26,12 +26,24 @@
   color: var(--mono-1000);
 }
 
+.note-input[aria-invalid='true'] {
+  border-color: var(--orange-600);
+}
+
 .note-input:hover {
   border-color: var(--primary-900);
 }
 
 .note-input:focus {
   border-color: var(--primary-900);
+}
+
+.error-input {
+  color: var(--orange-600);
+}
+
+.error-textarea {
+  grid-column: 2/4;
 }
 
 .note-textarea {
@@ -44,7 +56,7 @@
 }
 
 .note-button-group {
-  grid-column: 1/-1;
+  grid-column: 3/4;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -87,7 +99,8 @@
   color: var(--mono-200);
 }
 
-.prio-select-button:hover,.prio-select-button-focus {
+.prio-select-button:hover,
+.prio-select-button-focus {
   color: var(--mono-800);
 }
 
