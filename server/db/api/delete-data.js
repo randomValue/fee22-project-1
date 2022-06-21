@@ -11,7 +11,7 @@ export const deleteData = (app) => {
           if (foundIndex > -1) {
             data.notes.splice(foundIndex, 1)
             db.put({ _id: 'notes', ...data })
-            res.status(200).json({ text: 'Notiz erfolgreich gelöscht', id })
+            res.status(200).json({ message: 'Notiz erfolgreich gelöscht', id })
           }
         })
         .catch((err) => {

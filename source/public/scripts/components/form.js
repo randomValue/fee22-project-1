@@ -3,7 +3,7 @@ import { FormInput } from './form-input.js'
 import { FormLabel } from './form-label.js'
 import { FormSelect } from './form-select.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
-import { backUpData, useStore } from '../store.js'
+import { backUpData, useSnackbar, useStore } from '../store.js'
 import { updateNote } from '../fetch/update-note.js'
 import { uniqueId } from '../lib/uniqueId.js'
 import { useState } from '../reactive/use-state.js'
@@ -27,6 +27,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
   const [, setData] = useStore()
   const [hasError, setHasError] = useState({ title: false, subtitle: false, text: false })
   const [newNote, setNewNote] = useState(emptyNote)
+  const [, setSnackbar] = useSnackbar()
 
   useEffect(() => {
     setHasError({
@@ -42,7 +43,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
     createElement(FormLabel, { label: 'Titel:' }),
     createElement(FormInput, {
       isRequired: true,
-      hasError: hasError.title || undefined,
+      hasError: hasError?.title || undefined,
       placeholder: 'gib bitte einen Titel ein',
       'aria-errormessage': 'error-title',
       value: activeNote?.title || newNote?.title,
@@ -54,7 +55,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
         setActiveNote((state) => ({ ...state, title: e.target.value }))
       },
     }),
-    hasError.title &&
+    hasError?.title &&
       createElement(
         'span',
         { id: 'error-title', class: 'error-input' },
@@ -63,7 +64,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
     createElement(FormLabel, { label: 'Beschreibung:' }),
     createElement(FormInput, {
       isRequired: true,
-      hasError: hasError.subtitle,
+      hasError: hasError?.subtitle,
       placeholder: 'gib bitte eine Beschreibung ein',
       value: activeNote?.subtitle || newNote?.subtitle,
       'aria-errormessage': 'error-subtitle',
@@ -75,7 +76,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
         setActiveNote((state) => ({ ...state, subtitle: e.target.value }))
       },
     }),
-    hasError.subtitle &&
+    hasError?.subtitle &&
       createElement(
         'span',
         { id: 'error-subtitle', class: 'error-input' },
@@ -107,7 +108,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
       },
     }),
     createElement(FormLabel, { class: 'note-label', label: 'Notiz' }),
-    hasError.text &&
+    hasError?.text &&
       createElement(
         'span',
         { id: 'error-subtitle', class: 'error-input error-textarea' },
@@ -115,7 +116,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
       ),
     createElement(FormInput, {
       isRequired: true,
-      hasError: hasError.text || undefined,
+      hasError: hasError?.text || undefined,
       class: 'note-textarea',
       type: 'textarea',
       'aria-errormessage': 'error-text',
@@ -157,18 +158,22 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
                 })
                 return
               }
-              await createNote(newNote, setData).then((v) => {
-                setData((state) => {
-                  state.unshift(v.note)
-                  backUpData.default = state
-                  return state
+              await createNote(newNote, setData)
+                .then((v) => {
+                  setSnackbar({ text: v.message, type: 'success' })
+                  setData((state) => {
+                    state.unshift(v.note)
+                    backUpData.default = state
+                    return state
+                  })
+                  routerPush(`/${newNote?.id}/edit`)
                 })
-              })
-              routerPush(`/${newNote?.id}/edit`)
+                .catch((e) => {
+                  setSnackbar({ type: 'error', text: e.message })
+                })
               return
             }
             if (!isValid(activeNote)) {
-              console.log(activeNote.text)
               setHasError({
                 title: activeNote.title === '',
                 subtitle: activeNote.subtitle === '',
@@ -176,16 +181,21 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
               })
               return
             }
-            await updateNote(activeNote).then((v) => {
-              setData((state) => {
-                const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
-                if (foundIndex > -1) {
-                  state[foundIndex] = v.note
-                }
-                backUpData.default = state
-                return state
+            await updateNote(activeNote)
+              .then((v) => {
+                setSnackbar({ text: v.message, type: 'success' })
+                setData((state) => {
+                  const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
+                  if (foundIndex > -1) {
+                    state[foundIndex] = v.note
+                  }
+                  backUpData.default = state
+                  return state
+                })
               })
-            })
+              .catch((e) => {
+                setSnackbar({ type: 'error', text: e.message })
+              })
           },
         },
         'speichern'

@@ -8,7 +8,7 @@ export const getData = (app) => {
         res.status(200).json(notes)
       })
       .catch((err) => {
-        res.status(err.status).json({ err: err.messages })
+        res.status(err.status).json(err)
       })
   })
 }

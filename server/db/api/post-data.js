@@ -12,12 +12,12 @@ export const postData = (app) => {
           data.notes.unshift(note)
           db.put({ _id: 'notes', ...data })
           res.json({
-            text: 'Erfolgreich neue Notiz erstellt',
+            message: 'Erfolgreich neue Notiz erstellt',
             note,
           })
         })
         .catch((err) => {
-          res.status(err.status).json({ text: err.message })
+          res.status(err.status).json({ message: err.message })
         })
     }
   })

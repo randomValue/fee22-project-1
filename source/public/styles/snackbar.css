@@ -1,0 +1,50 @@
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  padding: var(--spacing-3) var(--spacing-4);
+  max-width: 360px;
+  border-radius: var(--spacing-2);
+  transform: translate(-50%, 0);
+  color: black;
+  z-index: 60;
+}
+
+.snackbar-show {
+  animation-name: show-snackbar;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+}
+
+.snackbar-hide {
+    animation-name: hide-snackbar;
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;}
+
+@keyframes show-snackbar {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-snackbar {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.snackbar-error {
+  background-color: #e77c40ff;
+}
+
+.snackbar-success {
+  background-color: rgb(61 165 147);
+}

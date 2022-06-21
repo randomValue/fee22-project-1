@@ -2,12 +2,13 @@ import { createElement } from '../reactive/create-element.js'
 import { EditIcon } from './icons/edit-icon.js'
 import { CheckIcon } from './icons/check-icon.js'
 import { DeleteIcon } from './icons/delete-icon.js'
-import { backUpData, useStore } from '../store.js'
+import { backUpData, useSnackbar, useStore } from '../store.js'
 import { updateNote } from '../fetch/update-note.js'
 import { deleteNote } from '../fetch/delete-note.js'
 
 export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiveNote }) => {
   const [data, setData] = useStore()
+  const [, setSnackbar] = useSnackbar()
 
   return createElement(
     'div',
@@ -36,20 +37,25 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
         onClick: async () => {
           const toggleDone = !activeNote?.done
           const newData = [...data]
-          const foundNote = newData.find((note) => note.id === activeNote?.id)
+          const { ...foundNote } = newData.find((note) => note.id === activeNote?.id)
           if (foundNote) {
             foundNote.done = toggleDone
-            await updateNote(foundNote).then((v) => {
-              setData((state) => {
-                const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
-                if (foundIndex > -1) {
-                  state[foundIndex] = v.note
-                }
-                backUpData.default = state
-                return state
+            await updateNote(foundNote)
+              .then((v) => {
+                setData((state) => {
+                  const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
+                  if (foundIndex > -1) {
+                    state[foundIndex] = v.note
+                  }
+                  backUpData.default = state
+                  return state
+                })
+                setSnackbar({ text: v.message, type: 'success' })
+                setActiveNote(foundNote)
               })
-            })
-            setActiveNote(foundNote)
+              .catch((e) => {
+                setSnackbar({ text: e.message, type: 'error' })
+              })
           }
         },
       },
@@ -64,15 +70,20 @@ export const ContentHeaderButtons = ({ routerPush, queries, activeNote, setActiv
           const newData = [...data]
           const foundIndex = newData.findIndex((note) => note.id === activeNote?.id)
           if (foundIndex > -1) {
-            await deleteNote(activeNote.id).then(({ id }) => {
-              setData((state) => {
-                const index = state.findIndex((item) => item.id === id)
-                state.splice(index, 1)
-                backUpData.default = [...state]
-                return state
+            await deleteNote(activeNote.id)
+              .then(({ message, id }) => {
+                setSnackbar({ text: message, type: 'success' })
+                setData((state) => {
+                  const index = state.findIndex((item) => item.id === id)
+                  state.splice(index, 1)
+                  backUpData.default = [...state]
+                  return state
+                })
+                setActiveNote(undefined)
               })
-              setActiveNote(undefined)
-            })
+              .catch((e) => {
+                setSnackbar({ text: e.message, type: 'error' })
+              })
           }
         },
       },

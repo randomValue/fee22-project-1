@@ -15,13 +15,13 @@ export const putData = (app) => {
             note = data.notes[foundIndex]
             db.put({ _id: 'notes', ...data })
             res.json({
-              text: 'Erfolgreich gespeichert',
+              message: 'Erfolgreich gespeichert',
               note,
             })
           }
         })
         .catch((err) => {
-          res.status(err.status).json({ text: err.message })
+          res.status(err.status).json({ message: err.message })
         })
     }
   })
