@@ -5,14 +5,10 @@ export const deleteData = (app) => {
     const { id } = req.params
     if (id) {
       await db
-        .get('notes')
+        .get(id)
         .then((data) => {
-          const foundIndex = data.notes.findIndex((entry) => entry.id === id)
-          if (foundIndex > -1) {
-            data.notes.splice(foundIndex, 1)
-            db.put({ _id: 'notes', ...data })
-            res.status(200).json({ message: 'Notiz erfolgreich gelöscht', id })
-          }
+          db.remove(data)
+          res.status(200).json({ message: 'Notiz erfolgreich gelöscht', id })
         })
         .catch((err) => {
           res.status(err.status).json(err)

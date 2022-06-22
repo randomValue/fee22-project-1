@@ -5,13 +5,12 @@ import { FormSelect } from './form-select.js'
 import { parseDate, toDate } from '../lib/formate-date.js'
 import { backUpData, useSnackbar, useStore } from '../store.js'
 import { updateNote } from '../fetch/update-note.js'
-import { uniqueId } from '../lib/uniqueId.js'
 import { useState } from '../reactive/use-state.js'
 import { createNote } from '../fetch/create-note.js'
 import { useEffect } from '../reactive/use-effect.js'
 
 export const emptyNote = {
-  id: uniqueId(),
+  id: '',
   prio: 0,
   title: '',
   subtitle: '',
@@ -39,14 +38,16 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
 
   return createElement(
     'form',
-    { class: 'note-form' },
+    {
+      class: 'note-form',
+    },
     createElement(FormLabel, { label: 'Titel:' }),
     createElement(FormInput, {
       isRequired: true,
       hasError: hasError?.title || undefined,
       placeholder: 'gib bitte einen Titel ein',
       'aria-errormessage': 'error-title',
-      value: activeNote?.title || newNote?.title,
+      value: isNewEntry ? newNote?.title : activeNote?.title,
       onChange: (e) => {
         if (isNewEntry) {
           setNewNote((state) => ({ ...state, title: e.target.value }))
@@ -66,7 +67,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
       isRequired: true,
       hasError: hasError?.subtitle,
       placeholder: 'gib bitte eine Beschreibung ein',
-      value: activeNote?.subtitle || newNote?.subtitle,
+      value: isNewEntry ? newNote?.subtitle : activeNote?.subtitle,
       'aria-errormessage': 'error-subtitle',
       onChange: (e) => {
         if (isNewEntry) {
@@ -84,7 +85,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
       ),
     createElement(FormLabel, { label: 'zu erledigen bis:' }),
     createElement(FormInput, {
-      value: parseDate(activeNote?.dueDate || newNote?.dueDate),
+      value: parseDate(isNewEntry ? newNote?.dueDate : activeNote?.dueDate),
       type: 'date',
       onChange: (e) => {
         if (isNewEntry) {
@@ -120,7 +121,7 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
       class: 'note-textarea',
       type: 'textarea',
       'aria-errormessage': 'error-text',
-      children: activeNote?.text || newNote?.text,
+      children: isNewEntry ? newNote?.text : activeNote?.text,
       onChange: (e) => {
         if (isNewEntry) {
           setNewNote((state) => ({ ...state, text: e.target.value }))
@@ -158,15 +159,13 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
                 })
                 return
               }
-              await createNote(newNote, setData)
+              await createNote(newNote)
                 .then((v) => {
                   setSnackbar({ text: v.message, type: 'success' })
-                  setData((state) => {
-                    state.unshift(v.note)
-                    backUpData.default = state
-                    return state
-                  })
-                  routerPush(`/${newNote?.id}/edit`)
+                  backUpData.default.unshift(v.note)
+                  setData(backUpData.default)
+                  setNewNote(emptyNote)
+                  routerPush(`/${v.note?.id}/edit`)
                 })
                 .catch((e) => {
                   setSnackbar({ type: 'error', text: e.message })
@@ -184,14 +183,11 @@ export const Form = ({ activeNote, setActiveNote, routerPush, isNewEntry }) => {
             await updateNote(activeNote)
               .then((v) => {
                 setSnackbar({ text: v.message, type: 'success' })
-                setData((state) => {
-                  const foundIndex = state.findIndex((entry) => entry.id === v.note.id)
-                  if (foundIndex > -1) {
-                    state[foundIndex] = v.note
-                  }
-                  backUpData.default = state
-                  return state
-                })
+                const foundIndex = backUpData.default.findIndex((entry) => entry.id === v.note.id)
+                if (foundIndex > -1) {
+                  backUpData.default[foundIndex] = v.note
+                }
+                setData(backUpData.default)
               })
               .catch((e) => {
                 setSnackbar({ type: 'error', text: e.message })

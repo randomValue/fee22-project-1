@@ -1,13 +1,16 @@
-.snackbar {
+.snackbar-container {
   position: fixed;
   bottom: 20px;
   left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 60;
+}
+
+.snackbar {
   padding: var(--spacing-3) var(--spacing-4);
   max-width: 360px;
   border-radius: var(--spacing-2);
-  transform: translate(-50%, 0);
   color: black;
-  z-index: 60;
 }
 
 .snackbar-show {
@@ -17,9 +20,10 @@
 }
 
 .snackbar-hide {
-    animation-name: hide-snackbar;
-    animation-duration: 250ms;
-    animation-fill-mode: forwards;}
+  animation-name: hide-snackbar;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+}
 
 @keyframes show-snackbar {
   0% {

@@ -12,7 +12,7 @@ const App = () => {
   const [data, setData] = useStore()
   const [, setActiveNote] = useActiveNote()
   const { queries } = useRouter()
-  const [snackbar, setSnackbar] = useSnackbar()
+  const [, setSnackbar] = useSnackbar()
 
   useEffect(async () => {
     await readNote()
@@ -43,7 +43,7 @@ const App = () => {
     },
     createElement(SideNav),
     createElement(NoteContent, null),
-    snackbar.text && createElement(Snackbar, { ...snackbar })
+    createElement(Snackbar)
   )
 }
 const app = document.querySelector('#app')

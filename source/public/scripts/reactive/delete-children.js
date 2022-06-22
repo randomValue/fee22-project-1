@@ -9,7 +9,9 @@ export const deleteChildren = (currentChild, parentNode, i) => {
 
   node?.children?.forEach((child, childId) => {
     if (typeof child === 'object') {
-      node.domNode.removeChild(child)
+      if (node.domNode?.childNodes.length) {
+        node.domNode.removeChild(child)
+      }
       node.children[childId] = null
       return
     }
