@@ -8,11 +8,9 @@ export const postData = (app) => {
     const hasNote = !!Object.keys(note).length
 
     if (hasNote) {
-      console.log(uuid)
       await db
         .put({ _id: uuid, ...note })
         .then(() => {
-          console.log(note)
           res.json({
             message: 'Erfolgreich neue Notiz erstellt',
             note,

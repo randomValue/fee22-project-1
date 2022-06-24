@@ -14,9 +14,6 @@ export const FormInput = ({ hasError, isRequired, value, ...props }) => {
     }
   }, [value])
 
-  useEffect(() => {
-    console.log(props.children)
-  }, [props.children])
   return createElement(
     props.type === 'textarea' ? 'textarea' : 'input',
     {

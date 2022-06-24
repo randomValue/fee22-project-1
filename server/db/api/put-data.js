@@ -8,7 +8,6 @@ export const putData = (app) => {
       await db
         .get(id)
         .then((doc) => {
-          console.log(doc)
           return db.put({ ...req.body, _rev: doc._rev, _id: doc._id })
         })
         .then(() => {
@@ -18,7 +17,6 @@ export const putData = (app) => {
           })
         })
         .catch((err) => {
-          console.log()
           res.status(err.status).json({ message: err.message })
         })
     }
