@@ -5,6 +5,7 @@ import { createAttributes } from './create-attributes.js'
 import { createEvents } from './create-events.js'
 import { domNode } from './dom-node.js'
 import { loopThroughStates } from './loop-through-states.js'
+import { createRef } from './create-ref.js'
 
 export const vNode = {
   state: undefined,
@@ -23,6 +24,8 @@ export const vNode = {
   prevMemoDeps: undefined,
   cachedEffects: 0,
   cachedMemos: 0,
+  cachedRefs: 0,
+  refs: undefined,
   doneRendering: false,
   render(Comp) {
     this.doneRendering = false
@@ -41,6 +44,7 @@ export const vNode = {
     this.cachedIndex = 0
     this.cachedEffects = 0
     this.cachedMemos = 0
+    this.cachedRefs = 0
     if (Comp && (!sameState || !sameProps || !sameNode)) {
       this.nextState.forEach((entry, index) => {
         if (Array.isArray(entry)) {
@@ -83,6 +87,7 @@ export const vNode = {
           delete mutables.Dom[child]
         })
       }
+      createRef(composition, this.domNode)
       createAttributes(composition.props, this.domNode)
       createEvents(composition.synth, this.domNode, this.id, this.node)
 
@@ -92,5 +97,6 @@ export const vNode = {
     }
     this.doneRendering = true
     this.cachedIndex = 0
+    this.cachedRefs = 0
   },
 }
